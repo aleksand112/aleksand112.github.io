@@ -1,0 +1,2995 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Александр Карпоченко — Python backend-разработчик. Backend, автоматизация, AI. 8+ лет, 50+ проектов.">
+  <title>Александр Карпоченко — Backend Developer</title>
+
+  <!-- Theme Factory: Syne (display) + DM Sans (body) + JetBrains Mono (code) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%234f8aff'/><text y='.9em' font-size='58' x='50%' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='800'>А</text></svg>">
+
+  <style>
+    /* ══════════════════════════════════════════════
+       THEME FACTORY — CSS TOKEN SYSTEM
+       ══════════════════════════════════════════════ */
+    :root {
+      /* — Core palette — */
+      --bg-0:          #080c14;   /* deepest background */
+      --bg-1:          #0d1526;   /* card surfaces */
+      --bg-2:          #111f38;   /* elevated surfaces */
+      --border-dim:    rgba(79, 138, 255, 0.09);
+      --border-mid:    rgba(79, 138, 255, 0.2);
+      --border-hi:     rgba(79, 138, 255, 0.45);
+
+      /* — Text — */
+      --text-hi:       #f0f4ff;
+      --text-mid:      #8fa3c8;
+      --text-lo:       #4d6080;
+
+      /* — Accent — */
+      --accent:        #4f8aff;
+      --accent-hover:  #2f6de0;
+      --accent-glow:   rgba(79, 138, 255, 0.28);
+      --accent-2:      #00d4ff;   /* cyan highlight */
+      --success:       #22d36e;
+      --danger:        #ff5370;
+      --warning:       #f5c542;
+
+      /* — Typography — */
+      --font-display:  'Syne', sans-serif;
+      --font-body:     'DM Sans', sans-serif;
+      --font-mono:     'JetBrains Mono', monospace;
+
+      /* — Spacing scale (8pt grid) — */
+      --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+      --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px; --sp-9: 96px;
+
+      /* — Shadow scale — */
+      --shadow-sm:  0 2px 8px rgba(0,0,0,.35);
+      --shadow-md:  0 4px 24px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.02) inset;
+      --shadow-lg:  0 12px 40px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.025) inset;
+      --shadow-xl:  0 24px 72px rgba(0,0,0,.65), 0 0 0 1px rgba(255,255,255,.03) inset;
+      --shadow-glow: 0 0 40px rgba(79,138,255,.22), 0 0 0 1px rgba(79,138,255,.12);
+
+      /* — Motion — */
+      --ease-out:  cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-in:   cubic-bezier(0.64, 0, 0.78, 0);
+      --dur-fast:  150ms;
+      --dur-base:  220ms;
+      --dur-slow:  380ms;
+
+      /* — Radius — */
+      --r-sm: 8px;  --r-md: 14px; --r-lg: 20px; --r-xl: 28px;
+
+      /* — Cursor glow (updated by JS) — */
+      --cx: 50%; --cy: 50%;
+    }
+
+    /* ══════════════════════════════════════════════
+       RESET
+       ══════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) var(--bg-0);
+    }
+    html::-webkit-scrollbar { width: 5px; }
+    html::-webkit-scrollbar-track { background: var(--bg-0); }
+    html::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-0);
+      color: var(--text-hi);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { cursor: pointer; font-family: var(--font-body); }
+    ul { list-style: none; }
+
+    /* ══════════════════════════════════════════════
+       UTILITY
+       ══════════════════════════════════════════════ */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--sp-5);
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--sp-3);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -.03em;
+    }
+
+    .section-sub {
+      color: var(--text-mid);
+      font-size: 1rem;
+      margin-top: var(--sp-3);
+      font-weight: 300;
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: var(--sp-8);
+    }
+
+    /* Glass card — UI/UX Pro Max: elevation, inset highlight */
+    .glass {
+      background: var(--bg-card, rgba(13,21,38,.75));
+      backdrop-filter: blur(16px) saturate(1.4);
+      -webkit-backdrop-filter: blur(16px) saturate(1.4);
+      border: 1px solid var(--border-dim);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+    .glass::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(145deg, rgba(255,255,255,.035) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Tag — Frontend Design: JetBrains Mono, precise */
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      padding: 4px 10px;
+      background: rgba(79,138,255,.08);
+      border: 1px solid var(--border-dim);
+      border-radius: 40px;
+      color: var(--accent);
+      display: inline-block;
+      white-space: nowrap;
+      transition: box-shadow var(--dur-fast) var(--ease-out),
+                  border-color var(--dur-fast) var(--ease-out),
+                  background var(--dur-fast) var(--ease-out);
+      min-height: 28px; /* UI/UX: touch-friendly */
+      line-height: 20px;
+    }
+    .tag:hover {
+      box-shadow: 0 0 12px var(--accent-glow);
+      border-color: var(--accent);
+      background: rgba(79,138,255,.16);
+    }
+
+    /* Buttons — ≥44px touch targets */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+      min-height: 48px;
+      padding: 0 var(--sp-6);
+      border-radius: var(--r-sm);
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      border: none;
+      cursor: pointer;
+      transition: transform var(--dur-fast) var(--ease-out),
+                  box-shadow var(--dur-base) var(--ease-out),
+                  background var(--dur-fast);
+    }
+    .btn:hover  { transform: translateY(-1px) scale(1.01); }
+    .btn:active { transform: scale(.98); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      box-shadow: 0 8px 32px rgba(79,138,255,.45);
+    }
+
+    .btn-ghost {
+      background: rgba(79,138,255,.07);
+      color: var(--accent);
+      border: 1.5px solid var(--border-mid);
+    }
+    .btn-ghost:hover {
+      background: rgba(79,138,255,.13);
+      border-color: var(--accent);
+      box-shadow: var(--shadow-glow);
+    }
+
+    /* Scroll reveal — UI/UX Pro Max: 200ms ease-out */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity var(--dur-slow) var(--ease-out),
+                  transform var(--dur-slow) var(--ease-out);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* Focus — accessibility */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ══════════════════════════════════════════════
+       HEADER
+       ══════════════════════════════════════════════ */
+    #header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: var(--sp-5) 0;
+      transition: padding var(--dur-base) var(--ease-out),
+                  background var(--dur-base),
+                  backdrop-filter var(--dur-base),
+                  box-shadow var(--dur-base);
+    }
+    #header.scrolled {
+      padding: var(--sp-3) 0;
+      background: rgba(8,12,20,.88);
+      backdrop-filter: blur(24px) saturate(1.6);
+      -webkit-backdrop-filter: blur(24px) saturate(1.6);
+      box-shadow: 0 1px 0 var(--border-dim), var(--shadow-sm);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      color: var(--text-hi);
+    }
+    .logo em { color: var(--accent); font-style: normal; }
+
+    nav ul { display: flex; gap: var(--sp-7); align-items: center; }
+
+    nav a {
+      font-size: 0.83rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      position: relative;
+      transition: color var(--dur-fast);
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 4px; left: 0;
+      width: 0; height: 1.5px;
+      background: var(--accent);
+      border-radius: 1px;
+      transition: width var(--dur-base) var(--ease-out);
+    }
+    nav a:hover { color: var(--text-hi); }
+    nav a:hover::after, nav a.active::after { width: 100%; }
+    nav a.active { color: var(--accent); }
+
+    .nav-cta {
+      padding: 0 var(--sp-5) !important;
+      background: var(--accent);
+      color: #fff !important;
+      border-radius: var(--r-sm);
+      font-family: var(--font-display) !important;
+      font-weight: 700 !important;
+      transition: background var(--dur-fast), box-shadow var(--dur-base),
+                  transform var(--dur-fast) !important;
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover {
+      background: var(--accent-hover) !important;
+      box-shadow: 0 4px 18px var(--accent-glow);
+      transform: translateY(-1px);
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      padding: var(--sp-2);
+      min-width: 44px; min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      z-index: 201;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px; height: 2px;
+      background: var(--text-hi);
+      border-radius: 2px;
+      transition: transform var(--dur-base) var(--ease-out),
+                  opacity var(--dur-fast);
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(8,12,20,.97);
+      backdrop-filter: blur(32px);
+      z-index: 199;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-7);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--dur-base);
+    }
+    .mobile-nav.open { display: flex; opacity: 1; pointer-events: all; }
+    .mobile-nav a {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text-mid);
+      letter-spacing: -.04em;
+      transition: color var(--dur-fast);
+    }
+    .mobile-nav a:hover { color: var(--accent); }
+
+    /* ══════════════════════════════════════════════
+       HERO — Frontend Design: bold display type
+       ══════════════════════════════════════════════ */
+    #hero {
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 88px;
+    }
+
+    /* Background layers */
+    .hero-bg { position: absolute; inset: 0; pointer-events: none; }
+
+    /* Grid */
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(79,138,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(79,138,255,.04) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+    }
+
+    /* Noise — Frontend Design */
+    .hero-noise {
+      position: absolute; inset: 0;
+      opacity: .45;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");
+      background-size: 300px 300px;
+    }
+
+    /* Orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      animation: orbFloat 10s ease-in-out infinite;
+    }
+    .orb-a { width:580px; height:580px; background: radial-gradient(circle, rgba(79,138,255,.22) 0%, transparent 70%); top:-160px; left:-140px; animation-delay:0s; }
+    .orb-b { width:420px; height:420px; background: radial-gradient(circle, rgba(0,212,255,.12) 0%, transparent 70%); bottom:-80px; right:-60px; animation-delay:-5s; }
+    .orb-c { width:240px; height:240px; background: radial-gradient(circle, rgba(99,102,241,.18) 0%, transparent 70%); top:45%; left:55%; animation-delay:-2.5s; }
+    @keyframes orbFloat {
+      0%,100% { transform: translate(0,0) scale(1); }
+      50%      { transform: translate(16px,-18px) scale(1.04); }
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: var(--sp-8);
+      align-items: center;
+    }
+
+    /* Badge */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--accent);
+      padding: 6px 14px;
+      border: 1px solid var(--border-mid);
+      border-radius: 40px;
+      background: rgba(79,138,255,.07);
+      margin-bottom: var(--sp-5);
+      opacity: 0;
+      animation: slideUp .6s .15s var(--ease-out) forwards;
+    }
+    .badge-dot {
+      width: 6px; height: 6px;
+      background: var(--success);
+      border-radius: 50%;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.7)} }
+
+    /* Hero heading — Frontend Design: massive Syne */
+    .hero-h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 8.5vw, 7rem);
+      font-weight: 800;
+      line-height: .97;
+      letter-spacing: -.05em;
+      margin-bottom: var(--sp-5);
+      opacity: 0;
+      animation: slideUp .7s .3s var(--ease-out) forwards;
+    }
+    .hero-h1 .line-accent {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: clamp(.95rem, 1.8vw, 1.15rem);
+      color: var(--text-mid);
+      font-weight: 300;
+      line-height: 1.7;
+      max-width: 500px;
+      margin-bottom: var(--sp-7);
+      opacity: 0;
+      animation: slideUp .7s .45s var(--ease-out) forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: var(--sp-3);
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: slideUp .7s .6s var(--ease-out) forwards;
+    }
+
+    @keyframes slideUp {
+      from { opacity:0; transform:translateY(22px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    /* Terminal window */
+    .hero-terminal {
+      opacity: 0;
+      animation: slideUp .8s .75s var(--ease-out) forwards;
+    }
+
+    .terminal {
+      background: rgba(6,10,20,.9);
+      border: 1px solid var(--border-mid);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-xl), var(--shadow-glow);
+    }
+
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-2);
+      padding: 12px 16px;
+      background: rgba(255,255,255,.025);
+      border-bottom: 1px solid var(--border-dim);
+    }
+    .dot { width:11px; height:11px; border-radius:50%; }
+    .dot-r { background:#ff5f57; } .dot-y { background:#ffbd2e; } .dot-g { background:#28ca41; }
+    .terminal-title { font-family:var(--font-mono); font-size:.7rem; color:var(--text-lo); margin-left:6px; }
+
+    .terminal-body {
+      padding: var(--sp-5);
+      font-family: var(--font-mono);
+      font-size: .78rem;
+      line-height: 1.85;
+    }
+    .tp  { color: var(--accent); }
+    .tk  { color: #a78bfa; }
+    .ts  { color: var(--success); }
+    .tn  { color: var(--warning); }
+    .tc  { color: var(--text-lo); }
+    .cursor { display:inline-block; width:7px; height:13px; background:var(--accent); vertical-align:middle; margin-left:2px; animation:blink 1.1s step-end infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* scanline effect on terminal */
+    .terminal { position: relative; overflow: hidden; }
+    .terminal::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.04) 2px, rgba(0,0,0,.04) 4px);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* ══════════════════════════════════════════════
+       ABOUT
+       ══════════════════════════════════════════════ */
+    #about { padding: var(--sp-9) 0; }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: var(--sp-8);
+      align-items: stretch;
+    }
+
+    /* ── Photo carousel ── */
+    .photo-carousel {
+      position: relative;
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      height: 100%;
+      min-height: 420px;
+      background: var(--bg-1);
+      border: 1px solid var(--border-dim);
+      box-shadow: var(--shadow-xl);
+    }
+    .photo-carousel::before {
+      content: '';
+      position: absolute;
+      inset: 0; z-index: 1;
+      background: linear-gradient(180deg, rgba(8,12,20,.55) 0%, transparent 30%, transparent 70%, rgba(8,12,20,.5) 100%);
+      pointer-events: none;
+    }
+    .photo-slides {
+      width: 100%; height: 100%;
+      position: relative;
+    }
+    .photo-slide {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      opacity: 0;
+      transition: opacity .7s var(--ease-out);
+    }
+    .photo-slide.active { opacity: 1; }
+
+    .photo-dots {
+      position: absolute;
+      bottom: var(--sp-5); left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex; gap: 7px;
+    }
+    .photo-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,.35);
+      cursor: pointer;
+      transition: background var(--dur-base), transform var(--dur-base);
+      padding: 0;
+    }
+    .photo-dot.active {
+      background: #fff;
+      transform: scale(1.4);
+    }
+
+    .photo-caption {
+      position: absolute;
+      top: var(--sp-4); left: var(--sp-4);
+      z-index: 2;
+      font-family: var(--font-mono);
+      font-size: .65rem;
+      color: var(--text-mid);
+      opacity: .8;
+    }
+
+    /* ── Photo fallback (old class, kept for safety) ── */
+    .photo-fallback {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-size: 5rem;
+      font-weight: 800;
+      color: var(--accent);
+      background: linear-gradient(135deg, var(--bg-1), var(--bg-0));
+    }
+
+    .about-text .section-title { margin-bottom: var(--sp-4); }
+
+    .bio {
+      font-size: .97rem;
+      color: var(--text-mid);
+      line-height: 1.85;
+      font-weight: 300;
+      margin-bottom: var(--sp-7);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-3);
+    }
+
+    .stat {
+      padding: var(--sp-5) var(--sp-5);
+      text-align: center;
+    }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -.04em;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-lbl { font-size: .8rem; color: var(--text-mid); line-height: 1.4; }
+
+    /* ══════════════════════════════════════════════
+       SKILLS
+       ══════════════════════════════════════════════ */
+    #skills {
+      padding: var(--sp-9) 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(79,138,255,.025) 50%, transparent 100%);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: var(--sp-4);
+    }
+
+    .skill-card {
+      padding: var(--sp-6);
+      transition: transform var(--dur-base) var(--ease-out),
+                  box-shadow var(--dur-base) var(--ease-out),
+                  border-color var(--dur-base);
+    }
+    .skill-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border-mid);
+    }
+
+    .skill-icon {
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(79,138,255,.1);
+      border: 1px solid var(--border-dim);
+      border-radius: var(--r-sm);
+      color: var(--accent);
+      margin-bottom: var(--sp-4);
+    }
+    .skill-icon svg { width: 22px; height: 22px; }
+
+    .skill-cat {
+      font-family: var(--font-mono);
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--sp-2);
+    }
+
+    .skill-name {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: var(--sp-4);
+      letter-spacing: -.02em;
+    }
+
+    .tags-wrap { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+
+    /* ══════════════════════════════════════════════
+       PORTFOLIO
+       ══════════════════════════════════════════════ */
+    #portfolio { padding: var(--sp-9) 0; }
+
+    .tabs {
+      display: flex; gap: var(--sp-2);
+      justify-content: center;
+      margin-bottom: var(--sp-7);
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      min-height: 44px;
+      padding: 0 var(--sp-5);
+      border-radius: var(--r-sm);
+      font-family: var(--font-mono);
+      font-size: .78rem;
+      font-weight: 500;
+      border: 1.5px solid var(--border-dim);
+      background: transparent;
+      color: var(--text-mid);
+      transition: all var(--dur-base) var(--ease-out);
+    }
+    .tab-btn:hover { border-color: var(--accent); color: var(--text-hi); }
+    .tab-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: var(--sp-5);
+    }
+
+    .project-card {
+      overflow: hidden;
+      transition: transform var(--dur-base) var(--ease-out),
+                  box-shadow var(--dur-base),
+                  border-color var(--dur-base);
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border-mid);
+    }
+
+    .project-img {
+      height: 172px;
+      background: linear-gradient(135deg, #0a1020, #0d1a35);
+      position: relative;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .project-code {
+      font-family: var(--font-mono);
+      font-size: .68rem;
+      color: rgba(143,163,200,.5);
+      padding: var(--sp-4);
+      white-space: pre;
+      line-height: 1.8;
+      position: absolute; top:0; left:0; right:0;
+      overflow: hidden;
+    }
+
+    .project-emoji-icon {
+      position: relative; z-index: 1;
+      width: 48px; height: 48px;
+      background: rgba(79,138,255,.12);
+      border: 1px solid var(--border-mid);
+      border-radius: var(--r-sm);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent);
+    }
+    .project-emoji-icon svg { width: 24px; height: 24px; }
+
+    /* Screenshot-only card image (no icon) */
+    .project-img--screenshot { display: block; padding: 0; }
+
+    .project-screenshot {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      transition: transform .5s var(--ease-out);
+    }
+    .project-screenshot.portrait {
+      object-fit: contain;
+      background: #070b15;
+    }
+    .project-card:hover .project-screenshot { transform: scale(1.03); }
+
+    .project-preview-hint {
+      position: absolute; bottom: 10px; right: 10px; z-index: 2;
+      background: rgba(79,138,255,.18);
+      border: 1px solid var(--border-mid);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-family: var(--font-mono); font-size: .62rem;
+      color: var(--accent);
+      transition: opacity var(--dur-base);
+    }
+    .project-card:hover .project-preview-hint { opacity: 0; }
+
+    .project-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,12,20,.95) 0%, transparent 60%);
+    }
+
+    .project-body { padding: var(--sp-5); }
+
+    .project-name {
+      font-family: var(--font-display);
+      font-size: .97rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      margin-bottom: var(--sp-2);
+    }
+
+    .project-desc {
+      font-size: .83rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+      font-weight: 300;
+      margin-bottom: var(--sp-4);
+    }
+
+    /* ══════════════════════════════════════════════
+       SERVICES
+       ══════════════════════════════════════════════ */
+    #services {
+      padding: var(--sp-9) 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(79,138,255,.025) 50%, transparent 100%);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-4);
+    }
+
+    .service-card {
+      padding: var(--sp-7) var(--sp-6);
+      transition: transform var(--dur-base) var(--ease-out),
+                  box-shadow var(--dur-base),
+                  border-color var(--dur-base);
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border-mid);
+    }
+
+    .svc-icon {
+      width: 52px; height: 52px;
+      background: rgba(79,138,255,.08);
+      border: 1px solid var(--border-dim);
+      border-radius: var(--r-md);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent);
+      margin-bottom: var(--sp-5);
+      transition: background var(--dur-base), border-color var(--dur-base), box-shadow var(--dur-base);
+    }
+    .service-card:hover .svc-icon {
+      background: rgba(79,138,255,.15);
+      border-color: var(--border-hi);
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+    .svc-icon svg { width: 26px; height: 26px; }
+
+    .svc-name {
+      font-family: var(--font-display);
+      font-size: 1.02rem;
+      font-weight: 700;
+      letter-spacing: -.025em;
+      margin-bottom: var(--sp-3);
+    }
+
+    .svc-desc {
+      font-size: .83rem;
+      color: var(--text-mid);
+      line-height: 1.75;
+      font-weight: 300;
+      margin-bottom: var(--sp-5);
+    }
+
+    .svc-list { display: flex; flex-direction: column; gap: 7px; }
+    .svc-list li {
+      font-size: .78rem;
+      color: var(--text-mid);
+      display: flex; align-items: center; gap: var(--sp-2);
+    }
+    .svc-list li::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: .7;
+      flex-shrink: 0;
+    }
+
+    /* ══════════════════════════════════════════════
+       CTA BANNER
+       ══════════════════════════════════════════════ */
+    #cta-banner { padding: var(--sp-8) 0; }
+
+    .cta-wrap {
+      background: linear-gradient(135deg, #1743b0, #2563eb, #1b50d8);
+      border-radius: var(--r-xl);
+      padding: var(--sp-9) var(--sp-8);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(37,99,235,.4);
+    }
+    .cta-wrap::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='1' fill='rgba(255,255,255,.07)'/%3E%3C/svg%3E") repeat;
+      pointer-events: none;
+    }
+
+    .cta-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -.04em;
+      margin-bottom: var(--sp-7);
+      position: relative;
+    }
+
+    .cta-action {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-3);
+      min-height: 52px;
+      padding: 0 var(--sp-7);
+      background: #fff;
+      color: #1743b0;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1rem;
+      border-radius: var(--r-sm);
+      border: none;
+      cursor: pointer;
+      animation: ctaPulse 2.8s ease-in-out infinite;
+      transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast);
+    }
+    .cta-action:hover { transform: scale(1.03); animation: none; box-shadow: 0 8px 32px rgba(0,0,0,.2); }
+    .cta-action:active { transform: scale(.98); }
+    @keyframes ctaPulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(255,255,255,.4); }
+      50%      { box-shadow: 0 0 0 12px rgba(255,255,255,0); }
+    }
+
+    /* ══════════════════════════════════════════════
+       REVIEWS
+       ══════════════════════════════════════════════ */
+    #reviews { padding: var(--sp-9) 0; }
+
+    /* ── Reviews carousel ── */
+    .reviews-carousel { position: relative; padding: 0 40px; }
+
+    .reviews-track-wrap {
+      overflow: hidden;
+    }
+
+    .reviews-track {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 16px;
+      transition: transform .55s var(--ease-out);
+      will-change: transform;
+    }
+
+    .review-slide {
+      flex: 0 0 calc(33.333% - 11px);
+    }
+
+    .review-card { padding: var(--sp-6); display: flex; flex-direction: column; gap: var(--sp-4); height: 100%; }
+
+    /* nav arrows */
+    .rev-arrow {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      z-index: 2;
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-mid);
+      background: var(--bg-1);
+      color: var(--text-hi);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all var(--dur-base) var(--ease-out);
+    }
+    .rev-arrow:hover { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 16px var(--accent-glow); }
+    .rev-arrow.prev { left: -22px; }
+    .rev-arrow.next { right: -22px; }
+
+    /* dots */
+    .rev-dots {
+      display: flex; gap: 7px;
+      justify-content: center;
+      margin-top: var(--sp-5);
+    }
+    .rev-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      border: none;
+      background: var(--border-mid);
+      cursor: pointer;
+      transition: background var(--dur-base), transform var(--dur-base);
+      padding: 0;
+    }
+    .rev-dot.active { background: var(--accent); transform: scale(1.4); }
+
+    @media (max-width: 900px) {
+      .review-slide { flex: 0 0 calc(50% - 8px); }
+      .rev-arrow { display: none; }
+      .reviews-carousel { padding: 0; }
+    }
+    @media (max-width: 560px) {
+      .review-slide { flex: 0 0 100%; }
+    }
+
+    .review-q {
+      position: absolute;
+      top: var(--sp-4); right: var(--sp-5);
+      font-family: serif;
+      font-size: 5rem;
+      line-height: 1;
+      color: var(--accent);
+      opacity: .06;
+      pointer-events: none;
+    }
+
+    .review-top { display: flex; align-items: center; gap: var(--sp-3); }
+
+    .review-ava {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #6366f1);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: .8rem;
+      flex-shrink: 0;
+    }
+
+    .review-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: .9rem;
+      letter-spacing: -.01em;
+    }
+    .review-type { font-family: var(--font-mono); font-size: .68rem; color: var(--accent); margin-top: 2px; }
+
+    .review-stars { display: flex; gap: 3px; color: var(--warning); font-size: .8rem; }
+
+    .review-text { font-size: .83rem; color: var(--text-mid); line-height: 1.8; font-weight: 300; }
+
+    /* ══════════════════════════════════════════════
+       TAG TOOLTIP
+       ══════════════════════════════════════════════ */
+    .tag {
+      cursor: pointer;
+      user-select: none;
+      transition: background var(--dur-fast), color var(--dur-fast), border-color var(--dur-fast);
+    }
+    .tag:hover, .tag:focus-visible {
+      background: rgba(79,138,255,.22);
+      border-color: var(--accent);
+      color: var(--text-hi);
+      outline: none;
+    }
+
+    #tagTooltip {
+      position: fixed;
+      z-index: 3000;
+      max-width: 280px;
+      background: var(--bg-2);
+      border: 1px solid var(--border-hi);
+      border-radius: var(--r-md);
+      padding: var(--sp-4) var(--sp-5);
+      box-shadow: var(--shadow-lg), 0 0 24px rgba(79,138,255,.18);
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(6px) scale(.97);
+      transition: opacity .18s var(--ease-out), transform .18s var(--ease-out);
+    }
+    #tagTooltip.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: all;
+    }
+    .tt-name {
+      font-family: var(--font-mono);
+      font-size: .72rem;
+      color: var(--accent);
+      margin-bottom: var(--sp-2);
+      font-weight: 600;
+    }
+    .tt-desc {
+      font-size: .82rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+    .tt-close {
+      position: absolute; top: 8px; right: 10px;
+      font-size: .8rem; color: var(--text-lo);
+      cursor: pointer; background: none; border: none;
+      transition: color var(--dur-fast);
+      line-height: 1;
+    }
+    .tt-close:hover { color: var(--text-hi); }
+
+    /* ══════════════════════════════════════════════
+       PROJECT MODAL
+       ══════════════════════════════════════════════ */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      z-index: 2000;
+      background: rgba(5, 9, 18, .88);
+      display: flex; align-items: center; justify-content: center;
+      padding: var(--sp-5);
+      opacity: 0; pointer-events: none;
+      transition: opacity .28s var(--ease-out);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+    .modal-box {
+      position: relative;
+      width: min(900px, 100%);
+      background: var(--bg-1);
+      border: 1px solid var(--border-mid);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-xl), 0 0 80px rgba(79,138,255,.15);
+      transform: translateY(24px) scale(.97);
+      transition: transform .32s var(--ease-out);
+    }
+    .modal-overlay.open .modal-box { transform: translateY(0) scale(1); }
+
+    .modal-close {
+      position: absolute; top: 14px; right: 14px; z-index: 10;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border-mid);
+      background: var(--bg-2);
+      color: var(--text-mid);
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all var(--dur-fast);
+    }
+    .modal-close:hover { border-color: var(--accent); color: var(--accent); }
+
+    .modal-main-wrap { position: relative; background: var(--bg-0); }
+    .modal-main-img {
+      width: 100%; height: 56vh; max-height: 520px;
+      object-fit: cover; object-position: center top;
+      display: block;
+    }
+    .modal-main-img.portrait {
+      object-fit: contain; background: #070b15;
+    }
+    .modal-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      z-index: 3;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(8,12,20,.65);
+      color: #fff;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all var(--dur-base);
+      backdrop-filter: blur(6px);
+    }
+    .modal-nav:hover { border-color: var(--accent); color: var(--accent); background: rgba(8,12,20,.88); }
+    .modal-nav.prev { left: 12px; }
+    .modal-nav.next { right: 12px; }
+
+    .modal-counter {
+      position: absolute; bottom: 10px; right: 14px;
+      font-family: var(--font-mono); font-size: .65rem;
+      color: rgba(255,255,255,.55);
+      background: rgba(0,0,0,.4);
+      padding: 3px 8px; border-radius: 20px;
+    }
+
+    .modal-meta {
+      padding: var(--sp-4) var(--sp-5) var(--sp-3);
+      border-bottom: 1px solid var(--border-dim);
+    }
+    .modal-title {
+      font-family: var(--font-display); font-weight: 700; font-size: 1rem;
+      margin-bottom: 4px;
+    }
+    .modal-label { font-family: var(--font-mono); font-size: .68rem; color: var(--accent); margin-bottom: var(--sp-2); }
+    .modal-desc { font-size: .83rem; color: var(--text-mid); line-height: 1.7; margin-top: var(--sp-2); }
+
+    .modal-thumbs {
+      display: flex; gap: 8px;
+      padding: var(--sp-4) var(--sp-5);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .modal-thumbs::-webkit-scrollbar { display: none; }
+    .modal-thumb {
+      flex: 0 0 90px;
+      height: 58px;
+      object-fit: cover; object-position: center top;
+      border-radius: var(--r-sm);
+      cursor: pointer;
+      border: 2px solid transparent;
+      opacity: .5;
+      transition: opacity var(--dur-base), border-color var(--dur-base);
+    }
+    .modal-thumb.active { opacity: 1; border-color: var(--accent); }
+    .modal-thumb:hover { opacity: .8; }
+
+    /* clickable project card */
+    .project-card { cursor: pointer; }
+    .project-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    /* ══════════════════════════════════════════════
+       CONTACTS
+       ══════════════════════════════════════════════ */
+    #contacts {
+      padding: var(--sp-9) 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(79,138,255,.025) 50%, transparent 100%);
+    }
+
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: var(--sp-9);
+      align-items: start;
+    }
+
+    .contact-items { display: flex; flex-direction: column; gap: var(--sp-6); }
+
+    .contact-item { display: flex; align-items: center; gap: var(--sp-4); }
+
+    .contact-ico {
+      width: 52px; height: 52px;
+      background: rgba(79,138,255,.07);
+      border: 1px solid var(--border-dim);
+      border-radius: var(--r-md);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .contact-ico svg { width: 22px; height: 22px; }
+
+    .contact-lbl { font-size: .75rem; color: var(--text-lo); margin-bottom: 3px; font-family: var(--font-mono); }
+    .contact-val { font-family: var(--font-display); font-size: .97rem; font-weight: 700; }
+    .contact-val a { color: var(--accent); transition: color var(--dur-fast); }
+    .contact-val a:hover { color: var(--accent-2); }
+
+    /* Form */
+    .form { display: flex; flex-direction: column; gap: var(--sp-4); }
+
+    .form-group { display: flex; flex-direction: column; gap: var(--sp-2); }
+
+    .form-lbl { font-size: .78rem; font-weight: 500; color: var(--text-mid); }
+
+    .form-inp, .form-ta {
+      background: rgba(13,21,38,.7);
+      border: 1.5px solid var(--border-dim);
+      border-radius: var(--r-sm);
+      padding: 13px 16px;
+      font-family: var(--font-body);
+      font-size: .9rem;
+      color: var(--text-hi);
+      outline: none;
+      min-height: 48px; /* UI/UX: touch target */
+      transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+    }
+    .form-inp::placeholder, .form-ta::placeholder { color: var(--text-lo); }
+    .form-inp:focus, .form-ta:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .form-inp.err, .form-ta.err {
+      border-color: var(--danger);
+      box-shadow: 0 0 0 3px rgba(255,83,112,.15);
+    }
+    .form-ta { resize: vertical; min-height: 130px; }
+
+    .form-err {
+      font-size: .75rem;
+      color: var(--danger);
+      display: none;
+      font-family: var(--font-mono);
+    }
+    .form-err.show { display: block; }
+
+    .form-submit { width: 100%; font-size: .95rem; }
+
+    /* Toast — UI/UX: aria-live, auto-dismiss 4s */
+    .toast {
+      position: fixed;
+      bottom: var(--sp-7); right: var(--sp-7);
+      background: var(--success);
+      color: #fff;
+      padding: 14px 22px;
+      border-radius: var(--r-sm);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: .88rem;
+      box-shadow: var(--shadow-lg);
+      display: flex; align-items: center; gap: var(--sp-3);
+      transform: translateY(80px);
+      opacity: 0;
+      transition: transform var(--dur-slow) var(--ease-out), opacity var(--dur-slow);
+      z-index: 1000;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ══════════════════════════════════════════════
+       FOOTER
+       ══════════════════════════════════════════════ */
+    footer {
+      padding: var(--sp-7) 0 var(--sp-6);
+      border-top: 1px solid var(--border-dim);
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--sp-5);
+    }
+    .footer-l { display: flex; flex-direction: column; gap: 6px; }
+    .footer-copy { font-size: .83rem; color: var(--text-mid); font-family: var(--font-display); font-weight: 600; }
+    .footer-made { font-family: var(--font-mono); font-size: .68rem; color: var(--text-lo); }
+    .footer-nav { display: flex; gap: var(--sp-6); flex-wrap: wrap; }
+    .footer-nav a { font-size: .8rem; color: var(--text-lo); transition: color var(--dur-fast); min-height: 44px; display: flex; align-items: center; }
+    .footer-nav a:hover { color: var(--accent); }
+
+    /* ══════════════════════════════════════════════
+       RESPONSIVE
+       ══════════════════════════════════════════════ */
+    @media (max-width: 1080px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-terminal { display: none; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .reviews-grid  { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      nav { display: none; }
+      .hamburger { display: flex; }
+      .about-grid { grid-template-columns: 1fr; }
+      .photo-frame { max-width: 300px; margin: 0 auto; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .reviews-grid  { grid-template-columns: 1fr; }
+      .contacts-grid { grid-template-columns: 1fr; gap: var(--sp-8); }
+      .cta-wrap { padding: var(--sp-8) var(--sp-5); }
+      .stats { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn { width: 100%; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .orb, .cursor, .cta-action, .badge-dot { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+
+<!-- SVG icon defs — UI/UX Pro Max: no emojis, use SVG -->
+<svg style="display:none" aria-hidden="true">
+  <defs>
+    <!-- Skills icons -->
+    <symbol id="ico-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+    </symbol>
+    <symbol id="ico-server" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/>
+      <line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/>
+    </symbol>
+    <symbol id="ico-db" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <ellipse cx="12" cy="5" rx="9" ry="3"/>
+      <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+      <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+    </symbol>
+    <symbol id="ico-tool" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+    </symbol>
+    <symbol id="ico-brain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2a4 4 0 0 1 4 4v1a4 4 0 0 1 0 8v1a4 4 0 0 1-4 4 4 4 0 0 1-4-4v-1a4 4 0 0 1 0-8V6a4 4 0 0 1 4-4z"/>
+      <line x1="12" y1="6" x2="12" y2="18"/>
+      <line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/>
+    </symbol>
+    <symbol id="ico-layout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2"/>
+      <line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>
+    </symbol>
+    <symbol id="ico-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+    </symbol>
+
+    <!-- Service icons -->
+    <symbol id="ico-bot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="11" width="18" height="10" rx="2"/>
+      <path d="M12 2v4m-4 5v2m8-2v2M7 16h2m4 0h2"/>
+      <path d="M8 11V9a4 4 0 0 1 8 0v2"/>
+    </symbol>
+    <symbol id="ico-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+    </symbol>
+    <symbol id="ico-cog" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+    </symbol>
+    <symbol id="ico-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="2" y1="12" x2="22" y2="12"/>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+    </symbol>
+    <symbol id="ico-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+    </symbol>
+    <symbol id="ico-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="3" width="20" height="14" rx="2"/>
+      <line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+    </symbol>
+
+    <!-- Contact icons -->
+    <symbol id="ico-tg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 5L2 12.5l7 1M21 5l-2.5 15L9 13.5M21 5L9 13.5m0 0V19l3.25-3"/>
+    </symbol>
+    <symbol id="ico-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+      <polyline points="22,6 12,13 2,6"/>
+    </symbol>
+
+    <!-- Project icons -->
+    <symbol id="ico-dashboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+      <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+    </symbol>
+    <symbol id="ico-restaurant" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+      <line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/>
+    </symbol>
+    <symbol id="ico-dental" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2C8 2 4 5 4 9c0 2.5 1 4.5 2 6l2 7h4l1-5 1 5h4l2-7c1-1.5 2-3.5 2-6 0-4-4-7-8-7z"/>
+    </symbol>
+    <symbol id="ico-voice" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+      <path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
+    </symbol>
+    <symbol id="ico-vpn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    </symbol>
+    <symbol id="ico-payment" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+    </symbol>
+    <symbol id="ico-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
+      <line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/>
+    </symbol>
+    <symbol id="ico-lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+      <circle cx="9" cy="7" r="4"/>
+      <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+    </symbol>
+    <symbol id="ico-crm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+      <polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+    </symbol>
+    <symbol id="ico-spider" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M6.3 6.3l1.4 1.4M17.7 6.3l-1.4 1.4M6.3 17.7l1.4-1.4M17.7 17.7l-1.4-1.4"/>
+      <line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/>
+      <line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/>
+    </symbol>
+    <symbol id="ico-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </symbol>
+    <symbol id="ico-ai" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="2"/><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48 2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48 2.83-2.83"/>
+    </symbol>
+    <symbol id="ico-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+    </symbol>
+    <symbol id="ico-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<body>
+
+<!-- ── HEADER ── -->
+<header id="header" role="banner">
+  <div class="container header-inner">
+    <a href="#hero" class="logo" aria-label="На главную">Карпоченко<em>.</em></a>
+
+    <nav aria-label="Основная навигация">
+      <ul>
+        <li><a href="#about">Обо мне</a></li>
+        <li><a href="#skills">Навыки</a></li>
+        <li><a href="#portfolio">Проекты</a></li>
+        <li><a href="#services">Услуги</a></li>
+        <li><a href="#reviews">Отзывы</a></li>
+        <li><a href="#contacts" class="nav-cta">Связаться</a></li>
+      </ul>
+    </nav>
+
+    <button class="hamburger" id="ham" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobNav" aria-label="Мобильное меню">
+  <a href="#about">Обо мне</a>
+  <a href="#skills">Навыки</a>
+  <a href="#portfolio">Проекты</a>
+  <a href="#services">Услуги</a>
+  <a href="#reviews">Отзывы</a>
+  <a href="#contacts" style="color:var(--accent)">Связаться</a>
+</nav>
+
+<main>
+
+<!-- ── HERO ── -->
+<section id="hero" aria-label="Главная">
+  <div class="hero-bg">
+    <div class="hero-grid"></div>
+    <div class="hero-noise" aria-hidden="true"></div>
+    <div class="orb orb-a" aria-hidden="true"></div>
+    <div class="orb orb-b" aria-hidden="true"></div>
+    <div class="orb orb-c" aria-hidden="true"></div>
+  </div>
+
+  <div class="container" style="position:relative;z-index:1;padding-top:var(--sp-7);padding-bottom:var(--sp-7);">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-badge">
+          <span class="badge-dot" aria-hidden="true"></span>
+          Python Backend Developer · Доступен для проектов
+        </div>
+
+        <h1 class="hero-h1">
+          Backend<br>
+          <span class="line-accent">Автоматизация</span><br>
+          AI
+        </h1>
+
+        <p class="hero-sub">
+          8+ лет создаю надёжные backend-решения и автоматизирую бизнес-процессы. От Telegram-ботов до AI-агентов.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#contacts" class="btn btn-primary">
+            <svg width="16" height="16"><use href="#ico-mail"/></svg>
+            Связаться
+          </a>
+          <a href="#portfolio" class="btn btn-ghost">
+            Проекты →
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-terminal" aria-hidden="true">
+        <div class="terminal">
+          <div class="terminal-bar">
+            <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+            <span class="terminal-title">developer.py — python3</span>
+          </div>
+          <div class="terminal-body">
+            <div><span class="tp">>>> </span><span>import alexander</span></div>
+            <div><span class="tp">>>> </span>dev = alexander.<span class="tk">Developer</span>()</div>
+            <div><span class="tp">>>> </span>print(dev.<span class="tk">profile</span>)</div>
+            <br>
+            <div><span style="color:var(--text-mid)">{</span></div>
+            <div>&nbsp;&nbsp;<span class="tk">"name"</span>: <span class="ts">"Александр Карпоченко"</span>,</div>
+            <div>&nbsp;&nbsp;<span class="tk">"role"</span>: <span class="ts">"Python Backend Dev"</span>,</div>
+            <div>&nbsp;&nbsp;<span class="tk">"experience"</span>: <span class="tn">8</span>, <span class="tc"># лет</span></div>
+            <div>&nbsp;&nbsp;<span class="tk">"projects"</span>: <span class="tn">50</span>,</div>
+            <div>&nbsp;&nbsp;<span class="tk">"stack"</span>: [<span class="ts">"FastAPI"</span>, <span class="ts">"AI"</span>, <span class="ts">"n8n"</span>],</div>
+            <div>&nbsp;&nbsp;<span class="tk">"status"</span>: <span class="ts">"open_to_work"</span></div>
+            <div><span style="color:var(--text-mid)">}</span></div>
+            <br>
+            <div><span class="tp">>>> </span><span class="cursor"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about" aria-labelledby="about-h">
+  <div class="container">
+    <div class="about-grid">
+
+      <div class="reveal" style="height:100%">
+        <div class="photo-carousel" id="photoCarousel">
+          <div class="photo-caption">// Александр Карпоченко · backend dev</div>
+          <div class="photo-slides">
+            <img class="photo-slide active" src="Фото/IMG_1107.jpeg" loading="lazy"
+                 alt="Александр Карпоченко — Python backend-разработчик"
+                 onerror="this.style.background='var(--bg-1)'">
+            <img class="photo-slide" src="Фото/IMG_6491.jpeg" loading="lazy"
+                 alt="Александр Карпоченко — рабочий момент"
+                 onerror="this.style.background='var(--bg-1)'">
+            <img class="photo-slide" src="Фото/IMG_7399.jpeg" loading="lazy"
+                 alt="Александр Карпоченко — в работе"
+                 onerror="this.style.background='var(--bg-1)'">
+            <img class="photo-slide" src="Фото/IMG_1106.jpeg" loading="lazy"
+                 alt="Александр Карпоченко — backend разработчик"
+                 onerror="this.style.background='var(--bg-1)'">
+          </div>
+          <div class="photo-dots" role="tablist" aria-label="Выбор фото">
+            <button class="photo-dot active" data-idx="0" aria-label="Фото 1" aria-selected="true"></button>
+            <button class="photo-dot" data-idx="1" aria-label="Фото 2" aria-selected="false"></button>
+            <button class="photo-dot" data-idx="2" aria-label="Фото 3" aria-selected="false"></button>
+            <button class="photo-dot" data-idx="3" aria-label="Фото 4" aria-selected="false"></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-text">
+        <div class="reveal">
+          <div class="section-label">// обо мне</div>
+          <h2 id="about-h" class="section-title">
+            Python-разработчик<br><span style="color:var(--accent)">с душой&nbsp;инженера</span>
+          </h2>
+          <p class="bio">
+            Учился на программиста в ХИИК СибГУТИ. Начал заниматься разработкой ещё в лицее на уроках программирования. За 8+ лет прошёл путь от учебных проектов до крупных коммерческих решений. Ключевой проект — арт-инсталляция с ИИ-агентом, способным вести диалог с пользователем в реальном времени.
+          </p>
+        </div>
+
+        <div class="stats">
+          <div class="glass stat reveal" style="transition-delay:50ms">
+            <div class="stat-num">8+</div>
+            <div class="stat-lbl">лет опыта</div>
+          </div>
+          <div class="glass stat reveal" style="transition-delay:100ms">
+            <div class="stat-num">50+</div>
+            <div class="stat-lbl">проектов</div>
+          </div>
+          <div class="glass stat reveal" style="transition-delay:150ms">
+            <div class="stat-num">2500+</div>
+            <div class="stat-lbl">пользователей<br>(крупнейший проект)</div>
+          </div>
+          <div class="glass stat reveal" style="transition-delay:200ms">
+            <div class="stat-num" style="font-size:1.6rem">🇷🇺</div>
+            <div class="stat-lbl">Клиенты<br>по всей России</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── SKILLS ── -->
+<section id="skills" aria-labelledby="skills-h">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-label">// стек</div>
+      <h2 id="skills-h" class="section-title">Технологии</h2>
+      <p class="section-sub">Инструменты, которыми я решаю задачи</p>
+    </div>
+
+    <div class="skills-grid">
+
+      <div class="glass skill-card reveal" style="transition-delay:50ms">
+        <div class="skill-icon" aria-hidden="true"><svg><use href="#ico-code"/></svg></div>
+        <div class="skill-cat">Languages</div>
+        <div class="skill-name">Языки программирования</div>
+        <div class="tags-wrap">
+          <span class="tag">Python</span><span class="tag">C#</span><span class="tag">C++</span><span class="tag">JavaScript</span>
+        </div>
+      </div>
+
+      <div class="glass skill-card reveal" style="transition-delay:100ms">
+        <div class="skill-icon" aria-hidden="true"><svg><use href="#ico-server"/></svg></div>
+        <div class="skill-cat">Backend</div>
+        <div class="skill-name">Backend-фреймворки</div>
+        <div class="tags-wrap">
+          <span class="tag">FastAPI</span><span class="tag">Flask</span><span class="tag">Django</span><span class="tag">aiogram</span><span class="tag">telebot</span>
+        </div>
+      </div>
+
+      <div class="glass skill-card reveal" style="transition-delay:150ms">
+        <div class="skill-icon" aria-hidden="true"><svg><use href="#ico-db"/></svg></div>
+        <div class="skill-cat">Databases</div>
+        <div class="skill-name">Базы данных</div>
+        <div class="tags-wrap">
+          <span class="tag">PostgreSQL</span><span class="tag">MySQL</span><span class="tag">SQLite</span>
+        </div>
+      </div>
+
+      <div class="glass skill-card reveal" style="transition-delay:200ms">
+        <div class="skill-icon" aria-hidden="true"><svg><use href="#ico-tool"/></svg></div>
+        <div class="skill-cat">Tools & DevOps</div>
+        <div class="skill-name">Инструменты и DevOps</div>
+        <div class="tags-wrap">
+          <span class="tag">Docker</span><span class="tag">n8n</span><span class="tag">Git</span><span class="tag">CI/CD</span>
+        </div>
+      </div>
+
+      <div class="glass skill-card reveal" style="transition-delay:250ms">
+        <div class="skill-icon" aria-hidden="true"><svg><use href="#ico-brain"/></svg></div>
+        <div class="skill-cat">AI & Automation</div>
+        <div class="skill-name">ИИ и автоматизация</div>
+        <div class="tags-wrap">
+          <span class="tag">LLM Integration</span><span class="tag">AI Agents</span><span class="tag">Voice Pipelines</span><span class="tag">RAG</span>
+        </div>
+      </div>
+
+      <div class="glass skill-card reveal" style="transition-delay:300ms">
+        <div class="skill-icon" aria-hidden="true"><svg><use href="#ico-layout"/></svg></div>
+        <div class="skill-cat">Frontend</div>
+        <div class="skill-name">Frontend-разработка</div>
+        <div class="tags-wrap">
+          <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">React</span><span class="tag">Tailwind</span>
+        </div>
+      </div>
+
+      <div class="glass skill-card reveal" style="transition-delay:350ms">
+        <div class="skill-icon" aria-hidden="true"><svg><use href="#ico-card"/></svg></div>
+        <div class="skill-cat">Payments</div>
+        <div class="skill-name">Платёжные системы</div>
+        <div class="tags-wrap">
+          <span class="tag">Telegram Payments</span><span class="tag">ЮKassa</span><span class="tag">Robokassa</span>
+        </div>
+      </div>
+
+      <div class="glass skill-card reveal" style="transition-delay:400ms">
+        <div class="skill-icon" aria-hidden="true"><svg><use href="#ico-globe"/></svg></div>
+        <div class="skill-cat">Integrations</div>
+        <div class="skill-name">Интеграции и API</div>
+        <div class="tags-wrap">
+          <span class="tag">REST API</span><span class="tag">WebSockets</span><span class="tag">Webhooks</span><span class="tag">AmoCRM</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Tag tooltip -->
+<div id="tagTooltip" role="tooltip" aria-live="polite">
+  <button class="tt-close" id="ttClose" aria-label="Закрыть">✕</button>
+  <div class="tt-name" id="ttName"></div>
+  <div class="tt-desc" id="ttDesc"></div>
+</div>
+
+<!-- ── PORTFOLIO ── -->
+<section id="portfolio" aria-labelledby="portfolio-h">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-label">// портфолио</div>
+      <h2 id="portfolio-h" class="section-title">Проекты</h2>
+      <p class="section-sub">Часть реализованных коммерческих решений</p>
+    </div>
+
+    <div class="tabs reveal" role="tablist" aria-label="Категории проектов">
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tp-sites" data-tab="sites">Сайты</button>
+      <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tp-backend" data-tab="backend">Backend</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tp-auto" data-tab="auto">Автоматизации</button>
+    </div>
+
+    <!-- SITES -->
+    <div id="tp-sites" class="tab-panel" role="tabpanel">
+      <div class="projects-grid">
+
+        <!-- Ресторан — левая карточка -->
+        <article class="glass project-card reveal" data-gallery="restaurant" tabindex="0" role="button" aria-label="Открыть галерею: Лендинг ресторана">
+          <div class="project-img project-img--screenshot">
+            <img class="project-screenshot" src="screenshots/restaurant/Снимок экрана 2026-05-21 в 03.26.59.png" loading="lazy"
+                 alt="Лендинг ресторана" onerror="this.style.display='none'">
+            <div class="project-overlay"></div>
+            <div class="project-preview-hint">// нажмите для превью</div>
+          </div>
+          <div class="project-body">
+            <h3 class="project-name">Сайт ресторана</h3>
+            <p class="project-desc">Элегантный лендинг ресторана с онлайн-бронированием столиков. Фильтрация меню по категориям, галерея блюд, карусель отзывов.</p>
+            <div class="tags-wrap"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+          </div>
+        </article>
+
+        <!-- Дашборд — центральная карточка -->
+        <article class="glass project-card reveal" data-gallery="dashboard" tabindex="0" role="button" aria-label="Открыть галерею: Дашборд настроек ИИ-агента" style="transition-delay:80ms">
+          <div class="project-img project-img--screenshot">
+            <img class="project-screenshot" src="screenshots/dashboard/Снимок экрана 2026-05-21 в 03.42.49.png" loading="lazy"
+                 alt="Дашборд настроек ИИ-агента" onerror="this.style.display='none'">
+            <div class="project-overlay"></div>
+            <div class="project-preview-hint">// нажмите для превью</div>
+          </div>
+          <div class="project-body">
+            <h3 class="project-name">Дашборд настроек ИИ-агента</h3>
+            <p class="project-desc">Интерактивный дашборд для управления конфигурацией ИИ-агента. 6 разделов: overview, настройки модели, инструменты, память, логи, настройки системы.</p>
+            <div class="tags-wrap"><span class="tag">React</span><span class="tag">Tailwind CSS</span><span class="tag">SPA</span></div>
+          </div>
+        </article>
+
+        <!-- Стоматология — правая карточка -->
+        <article class="glass project-card reveal" data-gallery="dentistry" tabindex="0" role="button" aria-label="Открыть галерею: Сайт стоматологии" style="transition-delay:160ms">
+          <div class="project-img project-img--screenshot">
+            <img class="project-screenshot" src="screenshots/dentistry/Снимок экрана 2026-05-21 в 02.58.27.png" loading="lazy"
+                 alt="Сайт стоматологии" onerror="this.style.display='none'">
+            <div class="project-overlay"></div>
+            <div class="project-preview-hint">// нажмите для превью</div>
+          </div>
+          <div class="project-body">
+            <h3 class="project-name">Сайт стоматологии</h3>
+            <p class="project-desc">Многостраничный корпоративный сайт стоматологической клиники (5 страниц). Форма онлайн-записи, каталог услуг, карточки врачей, прайс-лист.</p>
+            <div class="tags-wrap"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <!-- BACKEND -->
+    <div id="tp-backend" class="tab-panel active" role="tabpanel">
+      <div class="projects-grid">
+        <article class="glass project-card reveal">
+          <div class="project-img">
+            <div class="project-code">async def pipeline():
+    audio = await mic.capture()
+    text = await stt.process(audio)
+    reply = await agent.chat(text)
+    await tts.speak(reply)</div>
+            <div class="project-overlay"></div>
+            <div class="project-emoji-icon" aria-hidden="true"><svg width="24" height="24"><use href="#ico-voice"/></svg></div>
+          </div>
+          <div class="project-body">
+            <h3 class="project-name">Голосовой пайплайн для ИИ-агента</h3>
+            <p class="project-desc">Разработка голосового пайплайна для арт-инсталляции ИИ-агента. Обработка аудио в реальном времени, STT/TTS, low-latency диалог.</p>
+            <div class="tags-wrap"><span class="tag">Python</span><span class="tag">WebSockets</span><span class="tag">STT/TTS</span><span class="tag">asyncio</span></div>
+          </div>
+        </article>
+
+        <article class="glass project-card reveal" style="transition-delay:60ms">
+          <div class="project-img">
+            <div class="project-code">@router.payment()
+async def handle(p: Payment):
+    sub = await create_sub(p)
+    await send_config(sub)
+    # 2500+ users</div>
+            <div class="project-overlay"></div>
+            <div class="project-emoji-icon" aria-hidden="true"><svg width="24" height="24"><use href="#ico-vpn"/></svg></div>
+          </div>
+          <div class="project-body">
+            <h3 class="project-name">VPN-бот Telegram</h3>
+            <p class="project-desc">Telegram-бот для автоматизированной продажи VPN-подписок. Приём платежей, автоматическая выдача конфигураций. ~2500 пользователей.</p>
+            <div class="tags-wrap"><span class="tag">Python</span><span class="tag">aiogram</span><span class="tag">PostgreSQL</span><span class="tag">ЮKassa</span></div>
+          </div>
+        </article>
+
+        <article class="glass project-card reveal" style="transition-delay:120ms">
+          <div class="project-img">
+            <div class="project-code">@app.post("/webhook")
+async def webhook(d: PayData):
+    txn = await verify(d.sig)
+    await process(txn)
+    return {"ok": True}</div>
+            <div class="project-overlay"></div>
+            <div class="project-emoji-icon" aria-hidden="true"><svg width="24" height="24"><use href="#ico-payment"/></svg></div>
+          </div>
+          <div class="project-body">
+            <h3 class="project-name">Платёжная система для сайта</h3>
+            <p class="project-desc">Интеграция платёжных шлюзов для веб-платформы. Обработка транзакций, webhook'и, возвраты, логирование платежей.</p>
+            <div class="tags-wrap"><span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">ЮKassa</span><span class="tag">Robokassa</span></div>
+          </div>
+        </article>
+
+        <article class="glass project-card reveal" style="transition-delay:180ms">
+          <div class="project-img">
+            <div class="project-code">async def get_users(
+    f: Filters, db: AsyncSession
+) -> list[User]:
+    q = select(User).where(
+        *build_filters(f)
+    )
+    return await db.scalars(q)</div>
+            <div class="project-overlay"></div>
+            <div class="project-emoji-icon" aria-hidden="true"><svg width="24" height="24"><use href="#ico-db"/></svg></div>
+          </div>
+          <div class="project-body">
+            <h3 class="project-name">Функции для работы с БД</h3>
+            <p class="project-desc">Оптимизированные функции и ORM-слои для PostgreSQL и MySQL. Миграции, индексы, сложные запросы, кэширование.</p>
+            <div class="tags-wrap"><span class="tag">Python</span><span class="tag">SQLAlchemy</span><span class="tag">PostgreSQL</span><span class="tag">Redis</span></div>
+          </div>
+        </article>
+
+        <article class="glass project-card reveal" style="transition-delay:240ms">
+          <div class="project-img">
+            <div class="project-code">@router.post("/auth/login")
+async def login(c: Credentials):
+    user = await auth(c)
+    token = create_jwt(user.id)
+    return {"token": token}</div>
+            <div class="project-overlay"></div>
+            <div class="project-emoji-icon" aria-hidden="true"><svg width="24" height="24"><use href="#ico-lock"/></svg></div>
+          </div>
+          <div class="project-body">
+            <h3 class="project-name">Система учёта пользователей</h3>
+            <p class="project-desc">Аутентификация и управление пользователями: регистрация, JWT, личный кабинет, роли и права.</p>
+            <div class="tags-wrap"><span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">JWT</span><span class="tag">bcrypt</span></div>
+          </div>
+        </article>
+
+        <article class="glass project-card reveal" style="transition-delay:300ms">
+          <div class="project-img">
+            <div class="project-code">@celery.task
+def aggregate():
+    data = db.query(Event).all()
+    stats = compute(data)
+    cache.set("dash", stats)
+    push_realtime(stats)</div>
+            <div class="project-overlay"></div>
+            <div class="project-emoji-icon" aria-hidden="true"><svg width="24" height="24"><use href="#ico-chart"/></svg></div>
+          </div>
+          <div class="project-body">
+            <h3 class="project-name">Система статистических данных</h3>
+            <p class="project-desc">Система сбора, агрегации и анализа данных. Дашборды, отчёты, визуализация метрик в реальном времени.</p>
+            <div class="tags-wrap"><span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">Celery</span><span class="tag">Chart.js</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- AUTO -->
+    <div id="tp-auto" class="tab-panel" role="tabpanel">
+      <div class="projects-grid">
+        <article class="glass project-card reveal">
+          <div class="project-img">
+            <div class="project-code">for lead in fetch_all():
+    score = llm.score(lead)
+    if score > threshold:
+        crm.create(lead)
+        notify(lead)
+# 340+ leads/day</div>
+            <div class="project-overlay"></div>
+            <div class="project-emoji-icon" aria-hidden="true"><svg width="24" height="24"><use href="#ico-lead"/></svg></div>
+          </div>
+          <div class="project-body">
+            <h3 class="project-name">ИИ-распределение входящих лидов</h3>
+            <p class="project-desc">Автоматический сбор лидов, AI-приоритезация по критериям качества, отправка в CRM с уведомлениями менеджерам.</p>
+            <div class="tags-wrap"><span class="tag">Python</span><span class="tag">n8n</span><span class="tag">AI/LLM</span></div>
+          </div>
+        </article>
+
+        <article class="glass project-card reveal" style="transition-delay:80ms">
+          <div class="project-img">
+            <div class="project-code">def handle(event):
+    c = amo.create_contact(event)
+    d = amo.create_deal(c)
+    amo.assign_task(d)
+    sync_status(d)</div>
+            <div class="project-overlay"></div>
+            <div class="project-emoji-icon" aria-hidden="true"><svg width="24" height="24"><use href="#ico-crm"/></svg></div>
+          </div>
+          <div class="project-body">
+            <h3 class="project-name">Подключение к AmoCRM</h3>
+            <p class="project-desc">Интеграция внешних сервисов и форм с AmoCRM. Автоматическое создание сделок, контактов, задач. Синхронизация статусов.</p>
+            <div class="tags-wrap"><span class="tag">Python</span><span class="tag">AmoCRM API</span><span class="tag">n8n</span></div>
+          </div>
+        </article>
+
+        <article class="glass project-card reveal" style="transition-delay:160ms">
+          <div class="project-img">
+            <div class="project-code">async def scrape(url):
+    async with proxy.get() as p:
+        page = await browser.get(
+            url, proxy=p
+        )
+        return parser.extract(page)</div>
+            <div class="project-overlay"></div>
+            <div class="project-emoji-icon" aria-hidden="true"><svg width="24" height="24"><use href="#ico-spider"/></svg></div>
+          </div>
+          <div class="project-body">
+            <h3 class="project-name">Автоматический парсинг</h3>
+            <p class="project-desc">Система парсинга данных с веб-ресурсов. Обход защит, ротация прокси, структурирование данных, экспорт.</p>
+            <div class="tags-wrap"><span class="tag">Python</span><span class="tag">Selenium</span><span class="tag">Scrapy</span><span class="tag">Proxies</span></div>
+          </div>
+        </article>
+
+        <article class="glass project-card reveal" style="transition-delay:240ms">
+          <div class="project-img">
+            <div class="project-code">@bot.message()
+async def reply(msg):
+    intent = nlp.classify(msg)
+    if intent.conf > 0.85:
+        await bot.send(kb[intent])
+    else: await escalate(msg)</div>
+            <div class="project-overlay"></div>
+            <div class="project-emoji-icon" aria-hidden="true"><svg width="24" height="24"><use href="#ico-chat"/></svg></div>
+          </div>
+          <div class="project-body">
+            <h3 class="project-name">Автоответчик Telegram + WhatsApp</h3>
+            <p class="project-desc">Бот-автоответчик для обработки типовых вопросов. Интеграция с базой знаний, эскалация на оператора.</p>
+            <div class="tags-wrap"><span class="tag">Python</span><span class="tag">aiogram</span><span class="tag">WhatsApp API</span><span class="tag">NLP</span></div>
+          </div>
+        </article>
+
+        <article class="glass project-card reveal" style="transition-delay:320ms">
+          <div class="project-img">
+            <div class="project-code">class AiConsultant:
+    def __init__(self, url):
+        self.rag = RAG(url)
+        self.llm = LLMClient()
+    async def answer(self, q):
+        ctx = await self.rag(q)
+        return await self.llm(ctx)</div>
+            <div class="project-overlay"></div>
+            <div class="project-emoji-icon" aria-hidden="true"><svg width="24" height="24"><use href="#ico-ai"/></svg></div>
+          </div>
+          <div class="project-body">
+            <h3 class="project-name">ИИ онлайн-консультант на сайте</h3>
+            <p class="project-desc">Виджет ИИ-консультанта. Контекстные ответы на основе контента сайта, сбор лидов, интеграция с CRM.</p>
+            <div class="tags-wrap"><span class="tag">JavaScript</span><span class="tag">Python</span><span class="tag">LLM</span><span class="tag">RAG</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section id="services" aria-labelledby="services-h">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-label">// услуги</div>
+      <h2 id="services-h" class="section-title">Чем могу помочь</h2>
+      <p class="section-sub">Услуги, которые я оказываю клиентам</p>
+    </div>
+
+    <div class="services-grid">
+
+      <div class="glass service-card reveal" style="transition-delay:50ms">
+        <div class="svc-icon" aria-hidden="true"><svg><use href="#ico-bot"/></svg></div>
+        <h3 class="svc-name">Telegram-бот под ключ</h3>
+        <p class="svc-desc">Разработка ботов любой сложности — от простых меню-ботов до систем с платежами, подписками и CRM-интеграциями.</p>
+        <ul class="svc-list">
+          <li>Меню и команды</li><li>База данных</li><li>Админ-панель</li>
+          <li>Платёжные системы</li><li>Интеграции с сервисами</li>
+        </ul>
+      </div>
+
+      <div class="glass service-card reveal" style="transition-delay:100ms">
+        <div class="svc-icon" aria-hidden="true"><svg><use href="#ico-zap"/></svg></div>
+        <h3 class="svc-name">Backend и API на Python</h3>
+        <p class="svc-desc">Надёжный backend для вашего проекта — REST API, микросервисы, обработка данных, интеграции с внешними сервисами.</p>
+        <ul class="svc-list">
+          <li>Проектирование API</li><li>Аутентификация</li><li>Swagger-документация</li>
+          <li>Базы данных</li><li>Docker-контейнеризация</li>
+        </ul>
+      </div>
+
+      <div class="glass service-card reveal" style="transition-delay:150ms">
+        <div class="svc-icon" aria-hidden="true"><svg><use href="#ico-cog"/></svg></div>
+        <h3 class="svc-name">Автоматизация бизнес-процессов</h3>
+        <p class="svc-desc">Автоматизация рутинных процессов — от сбора лидов до обработки почты и синхронизации данных между сервисами.</p>
+        <ul class="svc-list">
+          <li>Анализ процесса</li><li>n8n / Python-скрипты</li>
+          <li>AI-агенты</li><li>Мониторинг и алерты</li>
+        </ul>
+      </div>
+
+      <div class="glass service-card reveal" style="transition-delay:200ms">
+        <div class="svc-icon" aria-hidden="true"><svg><use href="#ico-globe"/></svg></div>
+        <h3 class="svc-name">Создание и доработка сайтов</h3>
+        <p class="svc-desc">Создание сайтов с нуля или доработка существующих — от лендингов до многостраничных корпоративных сайтов.</p>
+        <ul class="svc-list">
+          <li>Адаптивная вёрстка</li><li>Формы и интерактив</li>
+          <li>SEO-оптимизация</li><li>Аналитика</li>
+        </ul>
+      </div>
+
+      <div class="glass service-card reveal" style="transition-delay:250ms">
+        <div class="svc-icon" aria-hidden="true"><svg><use href="#ico-wrench"/></svg></div>
+        <h3 class="svc-name">Доработка и отладка Python</h3>
+        <p class="svc-desc">Исправление багов, рефакторинг, оптимизация производительности, добавление функционала в существующие проекты.</p>
+        <ul class="svc-list">
+          <li>Диагностика проблем</li><li>Исправление ошибок</li>
+          <li>Рефакторинг</li><li>Тесты и документация</li>
+        </ul>
+      </div>
+
+      <div class="glass service-card reveal" style="transition-delay:300ms">
+        <div class="svc-icon" aria-hidden="true"><svg><use href="#ico-monitor"/></svg></div>
+        <h3 class="svc-name">Скрипты и десктоп-приложения</h3>
+        <p class="svc-desc">Python-скрипты для автоматизации задач и десктоп-приложения с графическим интерфейсом.</p>
+        <ul class="svc-list">
+          <li>Парсинг и обработка данных</li><li>GUI (Tkinter / PyQt)</li>
+          <li>Упаковка в .exe</li><li>Автоматизация ПК</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section id="cta-banner" aria-label="Призыв к действию">
+  <div class="container">
+    <div class="cta-wrap reveal">
+      <h2 class="cta-title">Нужна помощь с проектом?<br>Давайте обсудим!</h2>
+      <a href="https://t.me/aleksand112" target="_blank" rel="noopener noreferrer" class="cta-action">
+        <svg width="18" height="18"><use href="#ico-tg"/></svg>
+        Написать в Telegram
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── REVIEWS ── -->
+<section id="reviews" aria-labelledby="reviews-h">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-label">// отзывы</div>
+      <h2 id="reviews-h" class="section-title">Что говорят клиенты</h2>
+      <p class="section-sub">Отзывы о выполненных проектах</p>
+    </div>
+
+    <div class="reviews-carousel reveal" id="revCarousel">
+      <button class="rev-arrow prev" id="revPrev" aria-label="Предыдущий отзыв">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="reviews-track-wrap">
+        <div class="reviews-track" id="revTrack">
+
+          <div class="review-slide">
+            <div class="glass review-card">
+              <div class="review-q" aria-hidden="true">"</div>
+              <div class="review-top">
+                <div class="review-ava" style="background:linear-gradient(135deg,#4f8aff,#6366f1)">С.К.</div>
+                <div><div class="review-name">С. К.</div><div class="review-type">// VPN-бот</div></div>
+              </div>
+              <div class="review-stars" aria-label="Рейтинг 5 из 5">★★★★★</div>
+              <p class="review-text">«Саня, привет! Бот работает уже третий месяц, полёт нормальный. Подписки продлеваются, платежи приходят, ни одного падения. Пользователей уже за 2000 перевалило. Спасибо, всё чётко 👍»</p>
+            </div>
+          </div>
+
+          <div class="review-slide">
+            <div class="glass review-card">
+              <div class="review-q" aria-hidden="true">"</div>
+              <div class="review-top">
+                <div class="review-ava" style="background:linear-gradient(135deg,#22d36e,#1743b0)">А.Р.</div>
+                <div><div class="review-name">А. Р.</div><div class="review-type">// Backend API</div></div>
+              </div>
+              <div class="review-stars" aria-label="Рейтинг 5 из 5">★★★★★</div>
+              <p class="review-text">«Александр, приняли API в продакшн. Код чистый, документация подробная, наши разработчики оценили. Эндпоинты работают быстро, валидация на месте. Буду рекомендовать коллегам.»</p>
+            </div>
+          </div>
+
+          <div class="review-slide">
+            <div class="glass review-card">
+              <div class="review-q" aria-hidden="true">"</div>
+              <div class="review-top">
+                <div class="review-ava" style="background:linear-gradient(135deg,#f5c542,#e07b00)">С.М.</div>
+                <div><div class="review-name">С. М.</div><div class="review-type">// Автоматизация лидов</div></div>
+              </div>
+              <div class="review-stars" aria-label="Рейтинг 5 из 5">★★★★★</div>
+              <p class="review-text">«Саша, это просто магия! Раньше менеджер тратил 2-3 часа в день на перенос лидов из разных источников в CRM. Теперь всё само летит, ещё и приоритезируется. Окупилось за первую неделю 😄»</p>
+            </div>
+          </div>
+
+          <div class="review-slide">
+            <div class="glass review-card">
+              <div class="review-q" aria-hidden="true">"</div>
+              <div class="review-top">
+                <div class="review-ava" style="background:linear-gradient(135deg,#00d4ff,#22d36e)">К.О.</div>
+                <div><div class="review-name">К. О.</div><div class="review-type">// Сайт стоматологии</div></div>
+              </div>
+              <div class="review-stars" aria-label="Рейтинг 5 из 5">★★★★★</div>
+              <p class="review-text">«Александр, клиника осталась очень довольна сайтом. Записи через форму пошли уже на второй день. Мы потом сами тексты на страницах услуг немного правили, но это мелочи. В целом — огонь!»</p>
+            </div>
+          </div>
+
+          <div class="review-slide">
+            <div class="glass review-card">
+              <div class="review-q" aria-hidden="true">"</div>
+              <div class="review-top">
+                <div class="review-ava" style="background:linear-gradient(135deg,#ff5370,#6366f1)">Д.Н.</div>
+                <div><div class="review-name">Д. Н.</div><div class="review-type">// Автоответчик Telegram</div></div>
+              </div>
+              <div class="review-stars" aria-label="Рейтинг 5 из 5">★★★★★</div>
+              <p class="review-text">«Бот-автоответчик спас нашу поддержку. 70% типовых вопросов теперь закрываются автоматически, операторы разбирают только сложные случаи. Работает стабильно, спасибо!»</p>
+            </div>
+          </div>
+
+          <div class="review-slide">
+            <div class="glass review-card">
+              <div class="review-q" aria-hidden="true">"</div>
+              <div class="review-top">
+                <div class="review-ava" style="background:linear-gradient(135deg,#4f8aff,#22d36e)">С.В.</div>
+                <div><div class="review-name">С. В.</div><div class="review-type">// Платёжная система</div></div>
+              </div>
+              <div class="review-stars" aria-label="Рейтинг 5 из 5">★★★★★</div>
+              <p class="review-text">«Саш, интеграция платежей прошла гладко. ЮKassa и Robokassa обе работают, вебхуки приходят, логи пишутся. Тестировали возвраты — тоже ок. Сдал заказчику, всё приняли без вопросов.»</p>
+            </div>
+          </div>
+
+          <div class="review-slide">
+            <div class="glass review-card">
+              <div class="review-q" aria-hidden="true">"</div>
+              <div class="review-top">
+                <div class="review-ava" style="background:linear-gradient(135deg,#f5c542,#4f8aff)">А.П.</div>
+                <div><div class="review-name">А. П.</div><div class="review-type">// ИИ-консультант</div></div>
+              </div>
+              <div class="review-stars" aria-label="Рейтинг 5 из 5">★★★★★</div>
+              <p class="review-text">«Александр, виджет консультанта на сайте — отличная штука. Конверсия в заявки выросла заметно, люди задают вопросы и сразу оставляют контакты. RAG работает, ответы релевантные контенту сайта.»</p>
+            </div>
+          </div>
+
+          <div class="review-slide">
+            <div class="glass review-card">
+              <div class="review-q" aria-hidden="true">"</div>
+              <div class="review-top">
+                <div class="review-ava" style="background:linear-gradient(135deg,#00d4ff,#6366f1)">И.К.</div>
+                <div><div class="review-name">И. К.</div><div class="review-type">// Система аутентификации</div></div>
+              </div>
+              <div class="review-stars" aria-label="Рейтинг 5 из 5">★★★★★</div>
+              <p class="review-text">«Принял систему учёта пользователей. Регистрация, логин, JWT, восстановление пароля — всё работает как надо. Код покрыт комментариями, разобраться было легко. Спасибо за оперативность!»</p>
+            </div>
+          </div>
+
+          <div class="review-slide">
+            <div class="glass review-card">
+              <div class="review-q" aria-hidden="true">"</div>
+              <div class="review-top">
+                <div class="review-ava" style="background:linear-gradient(135deg,#22d36e,#f5c542)">С.Т.</div>
+                <div><div class="review-name">С. Т.</div><div class="review-type">// Сайт ресторана</div></div>
+              </div>
+              <div class="review-stars" aria-label="Рейтинг 5 из 5">★★★★★</div>
+              <p class="review-text">«Саша, ресторан запустил сайт в пятницу, в выходные уже 15 бронирований через форму пришло. Хозяин счастлив, мне звонит благодарит 😅 Галерея и меню смотрятся отлично, мобильная версия тоже зашла.»</p>
+            </div>
+          </div>
+
+          <div class="review-slide">
+            <div class="glass review-card">
+              <div class="review-q" aria-hidden="true">"</div>
+              <div class="review-top">
+                <div class="review-ava" style="background:linear-gradient(135deg,#ff5370,#f5c542)">М.В.</div>
+                <div><div class="review-name">М. В.</div><div class="review-type">// Парсинг</div></div>
+              </div>
+              <div class="review-stars" aria-label="Рейтинг 5 из 5">★★★★★</div>
+              <p class="review-text">«Скрипт парсинга работает как часы. 5000+ записей за ночь, данные структурированы, экспорт в Excel — всё как просил. Прокси ротацию настроил, блокировок нет. Топ.»</p>
+            </div>
+          </div>
+
+          <div class="review-slide">
+            <div class="glass review-card">
+              <div class="review-q" aria-hidden="true">"</div>
+              <div class="review-top">
+                <div class="review-ava" style="background:linear-gradient(135deg,#4f8aff,#ff5370)">А.Г.</div>
+                <div><div class="review-name">А. Г.</div><div class="review-type">// Дашборд ИИ-агента</div></div>
+              </div>
+              <div class="review-stars" aria-label="Рейтинг 5 из 5">★★★★★</div>
+              <p class="review-text">«Александр, дашборд получился очень наглядный. Модель переключаю, температуру кручу, логи смотрю — всё в одном месте. Команда теперь агентов настраивает без залезания в код. Экономия времени огромная.»</p>
+            </div>
+          </div>
+
+          <div class="review-slide">
+            <div class="glass review-card">
+              <div class="review-q" aria-hidden="true">"</div>
+              <div class="review-top">
+                <div class="review-ava" style="background:linear-gradient(135deg,#00d4ff,#ff5370)">В.О.</div>
+                <div><div class="review-name">В. О.</div><div class="review-type">// Голосовой пайплайн</div></div>
+              </div>
+              <div class="review-stars" aria-label="Рейтинг 5 из 5">★★★★★</div>
+              <p class="review-text">«Саш, голосовой пайплайн для инсталляции — это было что-то. Задержка минимальная, STT/TTS работают, люди реально залипают и разговаривают с агентом по 10-15 минут. На выставке все спрашивали, кто делал 😎»</p>
+            </div>
+          </div>
+
+          <div class="review-slide">
+            <div class="glass review-card">
+              <div class="review-q" aria-hidden="true">"</div>
+              <div class="review-top">
+                <div class="review-ava" style="background:linear-gradient(135deg,#6366f1,#22d36e)">Р.С.</div>
+                <div><div class="review-name">Р. С.</div><div class="review-type">// AmoCRM интеграция</div></div>
+              </div>
+              <div class="review-stars" aria-label="Рейтинг 5 из 5">★★★★★</div>
+              <p class="review-text">«Интеграция с AmoCRM работает безупречно. Сделки создаются автоматически, статусы синхронизируются, уведомления приходят. Менеджеры перестали терять лиды. Спасибо, Александр, очень профессиональная работа.»</p>
+            </div>
+          </div>
+
+          <div class="review-slide">
+            <div class="glass review-card">
+              <div class="review-q" aria-hidden="true">"</div>
+              <div class="review-top">
+                <div class="review-ava" style="background:linear-gradient(135deg,#f5c542,#6366f1)">К.Д.</div>
+                <div><div class="review-name">К. Д.</div><div class="review-type">// Доработка проекта</div></div>
+              </div>
+              <div class="review-stars" aria-label="Рейтинг 5 из 5">★★★★★</div>
+              <p class="review-text">«Саша, спасибо что разобрался в чужом коде. Я уже думал, что проект придётся с нуля переписывать, а ты нашёл корень проблемы за пару часов и всё починил. Ещё и рефакторинг сделал, теперь читать можно.»</p>
+            </div>
+          </div>
+
+          <div class="review-slide">
+            <div class="glass review-card">
+              <div class="review-q" aria-hidden="true">"</div>
+              <div class="review-top">
+                <div class="review-ava" style="background:linear-gradient(135deg,#22d36e,#00d4ff)">Н.Г.</div>
+                <div><div class="review-name">Н. Г.</div><div class="review-type">// Система статистики</div></div>
+              </div>
+              <div class="review-stars" aria-label="Рейтинг 5 из 5">★★★★★</div>
+              <p class="review-text">«Дашборд статистики — именно то, что нужно. Метрики в реальном времени, отчёты генерируются, графики наглядные. Руководство наконец видит цифры, а не гадает. Александр, отличная работа, сроки соблюдены, качество на уровне.»</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <button class="rev-arrow next" id="revNext" aria-label="Следующий отзыв">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+      <div class="rev-dots" id="revDots" role="tablist" aria-label="Страницы отзывов"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACTS ── -->
+<section id="contacts" aria-labelledby="contacts-h">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-label">// контакты</div>
+      <h2 id="contacts-h" class="section-title">Связаться со мной</h2>
+      <p class="section-sub">Обсудим ваш проект — отвечаю быстро</p>
+    </div>
+
+    <div class="contacts-grid">
+
+      <div class="contact-items reveal">
+        <div class="contact-item">
+          <div class="contact-ico" aria-hidden="true"><svg><use href="#ico-tg"/></svg></div>
+          <div>
+            <div class="contact-lbl">Telegram</div>
+            <div class="contact-val"><a href="https://t.me/aleksand112" target="_blank" rel="noopener noreferrer">@aleksand112</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-ico" aria-hidden="true"><svg><use href="#ico-mail"/></svg></div>
+          <div>
+            <div class="contact-lbl">Email</div>
+            <div class="contact-val"><a href="mailto:aleksand112@gmail.com">aleksand112@gmail.com</a></div>
+          </div>
+        </div>
+        <a href="https://t.me/aleksand112" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width:fit-content;margin-top:var(--sp-3)">
+          <svg width="16" height="16"><use href="#ico-tg"/></svg>
+          Написать в Telegram
+        </a>
+      </div>
+
+      <div class="reveal" style="transition-delay:100ms">
+        <form class="form" id="contactForm" novalidate aria-label="Форма обратной связи">
+          <div class="form-group">
+            <label class="form-lbl" for="fname">Имя <span aria-hidden="true" style="color:var(--danger)">*</span></label>
+            <input type="text" id="fname" class="form-inp" placeholder="Ваше имя" autocomplete="given-name" aria-required="true">
+            <span class="form-err" id="err-name" role="alert">Введите имя (минимум 2 символа)</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-lbl" for="femail">Email <span aria-hidden="true" style="color:var(--danger)">*</span></label>
+            <input type="email" id="femail" class="form-inp" placeholder="your@email.com" autocomplete="email" aria-required="true">
+            <span class="form-err" id="err-email" role="alert">Введите корректный email</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-lbl" for="fmsg">Сообщение <span aria-hidden="true" style="color:var(--danger)">*</span></label>
+            <textarea id="fmsg" class="form-ta" placeholder="Расскажите о вашем проекте..." aria-required="true"></textarea>
+            <span class="form-err" id="err-msg" role="alert">Напишите сообщение (минимум 10 символов)</span>
+          </div>
+
+          <button type="submit" class="btn btn-primary form-submit" id="formBtn">Отправить</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ── PROJECT MODAL ── -->
+<div class="modal-overlay" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose" aria-label="Закрыть">✕</button>
+
+    <div class="modal-main-wrap">
+      <img class="modal-main-img" id="modalMainImg" src="" alt="">
+      <button class="modal-nav prev" id="modalPrev" aria-label="Предыдущий скриншот">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="modal-nav next" id="modalNext" aria-label="Следующий скриншот">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+      <div class="modal-counter" id="modalCounter">1 / 6</div>
+    </div>
+
+    <div class="modal-meta">
+      <div class="modal-title" id="modalTitle">Проект</div>
+      <div class="modal-label" id="modalLabel">// скриншоты</div>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="tags-wrap" id="modalTags" style="margin-top:var(--sp-3)"></div>
+    </div>
+
+    <div class="modal-thumbs" id="modalThumbs"></div>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer role="contentinfo">
+  <div class="container footer-inner">
+    <div class="footer-l">
+      <span class="footer-copy">© 2026 Aleksandr Karpochenko</span>
+      <span class="footer-made">// Made with Python and attention to detail</span>
+    </div>
+    <nav class="footer-nav" aria-label="Навигация в подвале">
+      <a href="#about">Обо мне</a>
+      <a href="#skills">Навыки</a>
+      <a href="#portfolio">Проекты</a>
+      <a href="#services">Услуги</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- Toast — UI/UX Pro Max: aria-live, 4s auto-dismiss -->
+<div class="toast" id="toast" aria-live="polite" aria-atomic="true">
+  <svg width="18" height="18" style="flex-shrink:0"><use href="#ico-check"/></svg>
+  Сообщение отправлено! Скоро свяжусь.
+</div>
+
+<script>
+  /* ── HEADER SCROLL ── */
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 48);
+  }, { passive: true });
+
+  /* ── ACTIVE NAV ── */
+  const secs  = [...document.querySelectorAll('section[id]')];
+  const links = [...document.querySelectorAll('nav a[href^="#"]')];
+
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY + 130;
+    let cur = '';
+    secs.forEach(s => { if (y >= s.offsetTop) cur = s.id; });
+    links.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
+    });
+  }, { passive: true });
+
+  /* ── HAMBURGER ── */
+  const ham    = document.getElementById('ham');
+  const mobNav = document.getElementById('mobNav');
+
+  function openMenu()  { ham.classList.add('open'); mobNav.classList.add('open'); ham.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
+  function closeMenu() { ham.classList.remove('open'); mobNav.classList.remove('open'); ham.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
+
+  ham.addEventListener('click', () => mobNav.classList.contains('open') ? closeMenu() : openMenu());
+  mobNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+  /* ── SCROLL REVEAL — IntersectionObserver ── */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      en.target.classList.add('visible');
+      io.unobserve(en.target);
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* ── TABS ── */
+  const tabBtns   = [...document.querySelectorAll('.tab-btn')];
+  const tabPanels = [...document.querySelectorAll('.tab-panel')];
+
+  tabBtns.forEach(btn => btn.addEventListener('click', () => {
+    const target = btn.dataset.tab;
+    tabBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+    btn.classList.add('active'); btn.setAttribute('aria-selected','true');
+
+    tabPanels.forEach(p => p.classList.remove('active'));
+
+    const panel = document.getElementById('tp-' + target);
+    panel.classList.add('active');
+
+    /* trigger stagger on cards that haven't appeared yet */
+    panel.querySelectorAll('.reveal:not(.visible)').forEach((c, i) => {
+      setTimeout(() => c.classList.add('visible'), i * 50);
+    });
+  }));
+
+  /* ── FORM ── */
+  const form    = document.getElementById('contactForm');
+  const toast   = document.getElementById('toast');
+  const formBtn = document.getElementById('formBtn');
+
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function setErr(fieldId, errId, show) {
+    const f = document.getElementById(fieldId);
+    const e = document.getElementById(errId);
+    f.classList.toggle('err', show);
+    e.classList.toggle('show', show);
+    f.setAttribute('aria-invalid', show ? 'true' : 'false');
+  }
+
+  /* UI/UX Pro Max: validate on blur, not on every keystroke */
+  document.getElementById('fname').addEventListener('blur', function() {
+    setErr('fname','err-name', this.value.trim().length < 2);
+  });
+  document.getElementById('femail').addEventListener('blur', function() {
+    setErr('femail','err-email', !emailRe.test(this.value.trim()));
+  });
+  document.getElementById('fmsg').addEventListener('blur', function() {
+    setErr('fmsg','err-msg', this.value.trim().length < 10);
+  });
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const name  = document.getElementById('fname').value.trim();
+    const email = document.getElementById('femail').value.trim();
+    const msg   = document.getElementById('fmsg').value.trim();
+
+    const n_err = name.length  < 2;
+    const e_err = !emailRe.test(email);
+    const m_err = msg.length   < 10;
+
+    setErr('fname','err-name', n_err);
+    setErr('femail','err-email', e_err);
+    setErr('fmsg','err-msg', m_err);
+
+    if (n_err || e_err || m_err) {
+      /* UI/UX: focus first invalid field */
+      if (n_err) document.getElementById('fname').focus();
+      else if (e_err) document.getElementById('femail').focus();
+      else document.getElementById('fmsg').focus();
+      return;
+    }
+
+    formBtn.disabled = true;
+    formBtn.textContent = 'Отправка…';
+
+    const TG_TOKEN   = '8910437997:AAFo2GknrAOeQFdf2SHWqQ_xr6vav-xtGJ8';
+    const TG_CHAT_ID = '1775931875';
+
+    const text = `📩 <b>Новая заявка с портфолио!</b>\n\n👤 <b>Имя:</b> ${name}\n📧 <b>Email:</b> ${email}\n💬 <b>Сообщение:</b>\n${msg}`;
+
+    fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: TG_CHAT_ID, text, parse_mode: 'HTML' })
+    })
+    .then(() => {
+      form.reset();
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 4000);
+    })
+    .catch(() => {
+      alert('Ошибка отправки. Напишите напрямую: t.me/aleksand112');
+    })
+    .finally(() => {
+      formBtn.disabled = false;
+      formBtn.textContent = 'Отправить';
+    });
+  });
+
+  /* ── SMOOTH SCROLL ── */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      if (id === '#') return;
+      const el = document.querySelector(id);
+      if (!el) return;
+      e.preventDefault();
+      window.scrollTo({ top: el.offsetTop - 80, behavior: 'smooth' });
+    });
+  });
+
+  /* ── PHOTO CAROUSEL ── */
+  (function() {
+    const slides = [...document.querySelectorAll('.photo-slide')];
+    const dots   = [...document.querySelectorAll('.photo-dot')];
+    if (!slides.length) return;
+    let cur = 0, timer;
+
+    function goTo(idx) {
+      slides[cur].classList.remove('active');
+      dots[cur].classList.remove('active');
+      dots[cur].setAttribute('aria-selected','false');
+      cur = (idx + slides.length) % slides.length;
+      slides[cur].classList.add('active');
+      dots[cur].classList.add('active');
+      dots[cur].setAttribute('aria-selected','true');
+    }
+
+    function startAuto() {
+      clearInterval(timer);
+      timer = setInterval(() => goTo(cur + 1), 3500);
+    }
+
+    dots.forEach(d => {
+      d.addEventListener('click', () => { goTo(+d.dataset.idx); startAuto(); });
+    });
+
+    /* swipe on touch */
+    let tx = 0;
+    const el = document.getElementById('photoCarousel');
+    el.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+    el.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - tx;
+      if (Math.abs(dx) > 40) { goTo(dx < 0 ? cur + 1 : cur - 1); startAuto(); }
+    }, { passive: true });
+
+    startAuto();
+  })();
+
+  /* ── REVIEWS CAROUSEL ── */
+  (function() {
+    const track  = document.getElementById('revTrack');
+    const dotsEl = document.getElementById('revDots');
+    if (!track) return;
+
+    const slides = [...track.querySelectorAll('.review-slide')];
+    const total  = slides.length;
+    let perView  = getPerView();
+    let pages    = Math.ceil(total / perView);
+    let curPage  = 0;
+    let autoTimer;
+
+    function getPerView() {
+      return window.innerWidth <= 560 ? 1 : window.innerWidth <= 900 ? 2 : 3;
+    }
+
+    function buildDots() {
+      dotsEl.innerHTML = '';
+      for (let i = 0; i < pages; i++) {
+        const d = document.createElement('button');
+        d.className = 'rev-dot' + (i === 0 ? ' active' : '');
+        d.setAttribute('aria-label', `Страница ${i+1}`);
+        d.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+        d.addEventListener('click', () => { goToPage(i); startAuto(); });
+        dotsEl.appendChild(d);
+      }
+    }
+
+    function goToPage(p) {
+      curPage = ((p % pages) + pages) % pages;
+      /* Use actual rendered slide width for correct offset */
+      const slideRect = slides[0].getBoundingClientRect();
+      const slideW    = slideRect.width + 16; /* +16 = gap */
+      track.style.transform = `translateX(-${curPage * perView * slideW}px)`;
+      [...dotsEl.querySelectorAll('.rev-dot')].forEach((d, i) => {
+        const active = i === curPage;
+        d.classList.toggle('active', active);
+        d.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+    }
+
+    function startAuto() {
+      clearInterval(autoTimer);
+      autoTimer = setInterval(() => goToPage(curPage + 1), 5000);
+    }
+
+    document.getElementById('revPrev').addEventListener('click', () => { goToPage(curPage - 1); startAuto(); });
+    document.getElementById('revNext').addEventListener('click', () => { goToPage(curPage + 1); startAuto(); });
+
+    /* swipe */
+    let tx = 0;
+    track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - tx;
+      if (Math.abs(dx) > 40) { goToPage(dx < 0 ? curPage + 1 : curPage - 1); startAuto(); }
+    }, { passive: true });
+
+    /* rebuild on resize */
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        const newPer = getPerView();
+        if (newPer !== perView) {
+          perView = newPer;
+          pages   = Math.ceil(total / perView);
+          curPage = 0;
+          buildDots();
+        }
+        goToPage(curPage);
+      }, 120);
+    }, { passive: true });
+
+    buildDots();
+    /* Delay initial positioning so layout is complete */
+    requestAnimationFrame(() => requestAnimationFrame(() => goToPage(0)));
+    startAuto();
+  })();
+
+  /* ── TECH TOOLTIP ── */
+  (function() {
+    const TECH = {
+      'Python':           'Основной язык разработки. Используется для backend, автоматизации, AI-интеграций и скриптов. Быстрая разработка + богатая экосистема библиотек.',
+      'C#':               'Объектно-ориентированный язык платформы .NET. Применялся в университетских и ранних коммерческих проектах (десктопные и серверные приложения).',
+      'C++':              'Высокопроизводительный язык системного программирования. Использовался для задач с требованиями к скорости выполнения и работы с памятью.',
+      'JavaScript':       'Язык для веба. Используется на фронтенде (React, Tailwind) и в небольших скриптах. Позволяет создавать интерактивные интерфейсы.',
+      'FastAPI':          'Современный async Python-фреймворк для REST API. Автогенерация OpenAPI документации, Pydantic-валидация, высокая производительность (сравнима с Node.js).',
+      'Flask':            'Лёгкий Python-микрофреймворк. Идеален для небольших API и прототипов — минимум магии, максимум контроля над архитектурой.',
+      'Django':           'Полноценный Python-фреймворк с ORM, админкой и аутентификацией «из коробки». Подходит для больших проектов с комплексной бизнес-логикой.',
+      'aiogram':          'Асинхронная библиотека для Telegram Bot API на Python. Поддерживает FSM (конечные автоматы), middleware, инлайн-клавиатуры. Используется в большинстве ботов.',
+      'telebot':          'Синхронная Python-библиотека для Telegram Bot API (pyTelegramBotAPI). Простая в освоении, подходит для несложных ботов без сложной архитектуры.',
+      'PostgreSQL':       'Мощная реляционная СУБД с открытым кодом. Поддерживает JSON, полнотекстовый поиск, транзакции ACID. Основная БД в production-проектах.',
+      'MySQL':            'Популярная реляционная СУБД. Используется в проектах, где заказчик предпочитает MySQL или хостинг предоставляет только его.',
+      'SQLite':           'Встраиваемая файловая БД без отдельного сервера. Используется для прототипов, небольших ботов и локального хранения данных.',
+      'Docker':           'Контейнеризация приложений. Позволяет упаковать приложение со всеми зависимостями и запустить идентично на любом сервере. Используется в деплое.',
+      'n8n':              'No-code/low-code платформа автоматизации рабочих процессов. Визуальный редактор цепочек: триггеры, HTTP-запросы, интеграции с CRM, мессенджерами и API.',
+      'Git':              'Система контроля версий. Ведение истории изменений, работа в ветках, code review через pull requests. Все проекты хранятся в Git-репозиториях.',
+      'CI/CD':            'Непрерывная интеграция и доставка. Автоматизация тестирования и деплоя при каждом коммите. Сокращает время от кода до продакшна.',
+      'LLM Integration':  'Подключение больших языковых моделей (GPT-4, Claude, Gemini) к продуктам через API. Чат-боты, генерация контента, анализ текста, автоматические ответы.',
+      'AI Agents':        'Автономные AI-агенты, которые планируют задачи, используют инструменты и принимают решения без постоянного участия человека. Реализованы в нескольких проектах.',
+      'Voice Pipelines':  'Полные голосовые пайплайны: захват аудио → STT (Speech-to-Text) → LLM-обработка → TTS (Text-to-Speech) → воспроизведение. Low-latency диалог в реальном времени.',
+      'RAG':              'Retrieval-Augmented Generation — архитектура, при которой LLM дополняется поиском по базе знаний. Ответы основаны на реальных данных, а не только на параметрах модели.',
+      'HTML':             'Язык разметки веб-страниц. Семантическая структура контента: заголовки, секции, формы, таблицы. Базовая технология любого сайта.',
+      'CSS':              'Язык стилей для веба. Управляет внешним видом: цвета, шрифты, сетки, анимации. В проектах используется чистый CSS с CSS-переменными и flexbox/grid.',
+      'React':            'JavaScript-библиотека для построения UI. Компонентный подход, виртуальный DOM, хуки. Используется для интерактивных SPA — дашбордов и приложений.',
+      'Tailwind':         'Utility-first CSS-фреймворк. Позволяет стилизовать прямо в HTML через классы-утилиты. Быстрая разработка без написания кастомного CSS.',
+      'Tailwind CSS':     'Utility-first CSS-фреймворк. Позволяет стилизовать прямо в HTML через классы-утилиты. Быстрая разработка без написания кастомного CSS.',
+      'Telegram Payments': 'Встроенная платёжная система Telegram. Принимает платежи прямо в чате через Telegram Stars или сторонние провайдеры (ЮKassa, Stripe).',
+      'ЮKassa':           'Российский платёжный шлюз от Яндекса. Поддерживает карты, СБП, электронные кошельки. Интеграция через API с webhook-уведомлениями о платежах.',
+      'Robokassa':        'Российский платёжный агрегатор. Работает с картами, СБП, терминалами. Используется для B2C-магазинов как альтернатива ЮKassa.',
+      'REST API':         'Архитектурный стиль для построения веб-сервисов. HTTP-методы (GET/POST/PUT/DELETE), JSON-формат данных, stateless-запросы. Стандарт интеграций между сервисами.',
+      'WebSockets':       'Протокол двустороннего соединения в реальном времени. Используется в голосовых пайплайнах, чатах, live-обновлениях данных без постоянных HTTP-запросов.',
+      'Webhooks':         'HTTP-колбеки: сторонний сервис уведомляет ваш сервер о событии (платёж, сообщение). Используется в платёжных системах, Telegram Bot API, CRM-интеграциях.',
+      'AmoCRM':           'CRM-система для управления продажами. Интеграция через API: создание сделок, обновление статусов, назначение задач менеджерам — всё автоматически.',
+      'SPA':              'Single Page Application — одностраничное приложение. Весь UI загружается один раз, переходы между разделами без перезагрузки страницы. Быстрый UX.',
+      'asyncio':          'Стандартная библиотека Python для асинхронного программирования. async/await синтаксис, event loop, конкурентные задачи без потоков. Основа FastAPI и aiogram.',
+      'STT/TTS':          'Speech-to-Text (распознавание речи) и Text-to-Speech (синтез речи). Компоненты голосового пайплайна — преобразуют аудио в текст и обратно.',
+      'Selenium':         'Инструмент для автоматизации браузера. Используется в парсинге JavaScript-сайтов, где обычный HTTP-запрос не работает из-за динамической загрузки данных.',
+    };
+
+    const tooltip = document.getElementById('tagTooltip');
+    const ttName  = document.getElementById('ttName');
+    const ttDesc  = document.getElementById('ttDesc');
+    const ttClose = document.getElementById('ttClose');
+    let activeTag = null;
+
+    function showTip(tag, name) {
+      const info = TECH[name];
+      if (!info) return;
+      if (activeTag) activeTag.classList.remove('tag-active');
+      activeTag = tag;
+      tag.classList.add('tag-active');
+
+      ttName.textContent = name;
+      ttDesc.textContent = info;
+      tooltip.classList.add('show');
+      positionTip(tag);
+    }
+
+    function hideTip() {
+      tooltip.classList.remove('show');
+      if (activeTag) { activeTag.classList.remove('tag-active'); activeTag = null; }
+    }
+
+    function positionTip(tag) {
+      const rect = tag.getBoundingClientRect();
+      const tipW = 280, tipH = tooltip.offsetHeight || 120;
+      let left = rect.left + rect.width / 2 - tipW / 2;
+      let top  = rect.bottom + 10;
+
+      if (left < 8) left = 8;
+      if (left + tipW > window.innerWidth - 8) left = window.innerWidth - tipW - 8;
+      if (top + tipH > window.innerHeight - 8) top = rect.top - tipH - 10;
+
+      tooltip.style.left = left + 'px';
+      tooltip.style.top  = top  + 'px';
+    }
+
+    document.addEventListener('click', e => {
+      const tag = e.target.closest('.tag');
+      if (tag) {
+        e.stopPropagation();
+        const name = tag.textContent.trim();
+        if (activeTag === tag) { hideTip(); return; }
+        showTip(tag, name);
+        return;
+      }
+      if (!tooltip.contains(e.target)) hideTip();
+    });
+
+    ttClose.addEventListener('click', hideTip);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') hideTip(); });
+
+    /* Detect portrait screenshots and mark them */
+    document.querySelectorAll('.project-screenshot').forEach(img => {
+      const check = () => {
+        if (img.naturalHeight > img.naturalWidth * 1.15) img.classList.add('portrait');
+      };
+      if (img.complete) check(); else img.addEventListener('load', check);
+    });
+  })();
+
+  /* ── PROJECT MODAL ── */
+  (function() {
+    const PROJECTS = {
+      dashboard: {
+        title: 'Дашборд настроек ИИ-агента',
+        label: '// React · Tailwind CSS · SPA',
+        desc:  'Интерактивный дашборд для управления конфигурацией ИИ-агента. 6 разделов: overview, настройки модели, инструменты, память, логи, настройки системы.',
+        tech:  ['React', 'Tailwind CSS', 'SPA'],
+        imgs: [
+          'screenshots/dashboard/Снимок экрана 2026-05-21 в 03.42.49.png',
+          'screenshots/dashboard/Снимок экрана 2026-05-21 в 03.43.20.png',
+          'screenshots/dashboard/Снимок экрана 2026-05-21 в 03.44.33.png',
+          'screenshots/dashboard/Снимок экрана 2026-05-21 в 03.44.43.png',
+          'screenshots/dashboard/Снимок экрана 2026-05-21 в 03.45.27.png',
+          'screenshots/dashboard/Снимок экрана 2026-05-21 в 03.51.39.png',
+          'screenshots/dashboard/Снимок экрана 2026-05-21 в 03.52.22.png',
+        ]
+      },
+      restaurant: {
+        title: 'Лендинг ресторана',
+        label: '// HTML · CSS · JavaScript',
+        desc:  'Одностраничный лендинг для ресторана с меню, галереей блюд, блоком акций и формой бронирования столика. Адаптивная вёрстка, плавные анимации, быстрая загрузка.',
+        tech:  ['HTML', 'CSS', 'JavaScript'],
+        imgs: [
+          'screenshots/restaurant/Снимок экрана 2026-05-21 в 03.26.59.png',
+          'screenshots/restaurant/Снимок экрана 2026-05-21 в 03.27.15.png',
+          'screenshots/restaurant/Снимок экрана 2026-05-21 в 03.27.35.png',
+          'screenshots/restaurant/Снимок экрана 2026-05-21 в 03.27.54.png',
+          'screenshots/restaurant/Снимок экрана 2026-05-21 в 03.28.24.png',
+          'screenshots/restaurant/Снимок экрана 2026-05-21 в 03.28.49.png',
+        ]
+      },
+      dentistry: {
+        title: 'Сайт стоматологии',
+        label: '// HTML · CSS · JavaScript · 5 страниц',
+        desc:  'Многостраничный сайт для стоматологической клиники: главная, услуги, врачи, цены, контакты. Чистый дизайн, SEO-разметка, форма записи на приём, адаптив под мобильные.',
+        tech:  ['HTML', 'CSS', 'JavaScript'],
+        imgs: [
+          'screenshots/dentistry/Снимок экрана 2026-05-21 в 02.58.27.png',
+          'screenshots/dentistry/Снимок экрана 2026-05-21 в 02.58.46.png',
+          'screenshots/dentistry/Снимок экрана 2026-05-21 в 02.59.06.png',
+          'screenshots/dentistry/Снимок экрана 2026-05-21 в 02.59.56.png',
+          'screenshots/dentistry/Снимок экрана 2026-05-21 в 03.00.28.png',
+          'screenshots/dentistry/Снимок экрана 2026-05-21 в 03.00.44.png',
+          'screenshots/dentistry/Снимок экрана 2026-05-21 в 03.00.57.png',
+        ]
+      }
+    };
+
+    const overlay   = document.getElementById('projectModal');
+    const mainImg   = document.getElementById('modalMainImg');
+    const counter   = document.getElementById('modalCounter');
+    const thumbsEl  = document.getElementById('modalThumbs');
+    const titleEl   = document.getElementById('modalTitle');
+    const labelEl   = document.getElementById('modalLabel');
+    const descEl    = document.getElementById('modalDesc');
+    const tagsEl    = document.getElementById('modalTags');
+    const prevBtn   = document.getElementById('modalPrev');
+    const nextBtn   = document.getElementById('modalNext');
+    const closeBtn  = document.getElementById('modalClose');
+
+    let curImgs = [], curIdx = 0;
+
+    function detectPortrait(img) {
+      img.classList.remove('portrait');
+      const check = () => {
+        if (img.naturalHeight > img.naturalWidth * 1.15) img.classList.add('portrait');
+      };
+      if (img.complete && img.naturalWidth) check();
+      else img.addEventListener('load', check, { once: true });
+    }
+
+    function setIdx(i) {
+      curIdx = ((i % curImgs.length) + curImgs.length) % curImgs.length;
+      mainImg.src = curImgs[curIdx];
+      detectPortrait(mainImg);
+      counter.textContent = `${curIdx + 1} / ${curImgs.length}`;
+      [...thumbsEl.querySelectorAll('.modal-thumb')].forEach((t, ti) => {
+        t.classList.toggle('active', ti === curIdx);
+      });
+      /* scroll active thumb into view */
+      const active = thumbsEl.querySelector('.modal-thumb.active');
+      if (active) active.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+    }
+
+    function openModal(key) {
+      const proj = PROJECTS[key];
+      if (!proj) return;
+      curImgs = proj.imgs;
+      titleEl.textContent = proj.title;
+      labelEl.textContent = proj.label;
+
+      /* description */
+      descEl.textContent = proj.desc || '';
+      descEl.style.display = proj.desc ? '' : 'none';
+
+      /* tech tags */
+      tagsEl.innerHTML = '';
+      if (proj.tech && proj.tech.length) {
+        proj.tech.forEach(t => {
+          const span = document.createElement('span');
+          span.className = 'tag';
+          span.textContent = t;
+          tagsEl.appendChild(span);
+        });
+        tagsEl.style.display = '';
+      } else {
+        tagsEl.style.display = 'none';
+      }
+
+      /* build thumbs */
+      thumbsEl.innerHTML = '';
+      proj.imgs.forEach((src, i) => {
+        const img = document.createElement('img');
+        img.className = 'modal-thumb' + (i === 0 ? ' active' : '');
+        img.src = src; img.alt = `Скриншот ${i+1}`;
+        img.loading = 'lazy';
+        img.addEventListener('click', () => setIdx(i));
+        thumbsEl.appendChild(img);
+      });
+
+      setIdx(0);
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    prevBtn.addEventListener('click', () => setIdx(curIdx - 1));
+    nextBtn.addEventListener('click', () => setIdx(curIdx + 1));
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', e => {
+      if (!overlay.classList.contains('open')) return;
+      if (e.key === 'Escape')      closeModal();
+      if (e.key === 'ArrowLeft')   setIdx(curIdx - 1);
+      if (e.key === 'ArrowRight')  setIdx(curIdx + 1);
+    });
+
+    /* attach to cards */
+    document.querySelectorAll('[data-gallery]').forEach(card => {
+      card.addEventListener('click', () => openModal(card.dataset.gallery));
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(card.dataset.gallery); }
+      });
+    });
+  })();
+</script>
+</body>
+</html>
