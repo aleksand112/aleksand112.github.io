@@ -13,7 +13,11 @@ Personal portfolio of Alexander Karpochenko, Python backend developer.
 
 ```
 index.html          # Main page (single-page portfolio)
+sites.html          # Detailed sites portfolio (linked from the Projects block)
+index.en.html       # English version of the main page
+sites.en.html       # English version of the sites page
 screenshots/        # Project screenshots (used in portfolio section)
+sites-media/        # Screenshots for the sites page
 Фото/               # Personal photos (used in About section)
 .nojekyll           # Disables Jekyll processing on GitHub Pages
 ```
