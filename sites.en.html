@@ -1484,6 +1484,70 @@
     /* кнопка на главной (index) — блок Проекты */
     .portfolio-more { display: flex; justify-content: center; margin-top: var(--sp-7); }
 
+    /* ── инлайн лента-карусель кейса (stage + превью) ── */
+    .case-gallery { padding: 0 var(--sp-6) var(--sp-6); }
+    .cg-stage {
+      position: relative; display: block; width: 100%; padding: 0; margin: 0;
+      border: 1px solid var(--border-dim); border-radius: var(--r-md); overflow: hidden;
+      background: #070b15; box-shadow: var(--shadow-sm); cursor: zoom-in;
+    }
+    .cg-stage-img {
+      width: 100%; height: min(52vh, 440px);
+      object-fit: cover; object-position: center top; display: block;
+      transition: opacity var(--dur-base) var(--ease-out);
+    }
+    .cg-stage-img.portrait { object-fit: contain; background: #070b15; }
+    .cg-stage-img.swap { opacity: 0; }
+    .cg-zoom {
+      position: absolute; top: 10px; right: 10px; z-index: 2;
+      width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
+      font-size: 15px; color: var(--text-hi);
+      background: rgba(8,12,20,.6); border: 1px solid var(--border-mid); border-radius: var(--r-sm);
+      opacity: 0; transform: translateY(-4px); transition: opacity var(--dur-base), transform var(--dur-base);
+      pointer-events: none; backdrop-filter: blur(4px);
+    }
+    @media (hover: hover) {
+      .cg-stage:hover .cg-zoom { opacity: 1; transform: translateY(0); }
+      .cg-stage:hover .cg-stage-img { opacity: .9; }
+    }
+    .cg-stage:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .cg-nav {
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
+      width: 38px; height: 38px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.18); background: rgba(8,12,20,.6); color: #fff;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all var(--dur-base); backdrop-filter: blur(6px);
+    }
+    .cg-nav:hover { border-color: var(--accent); color: var(--accent); background: rgba(8,12,20,.85); }
+    .cg-nav.prev { left: 12px; }
+    .cg-nav.next { right: 12px; }
+    .cg-nav svg { width: 16px; height: 16px; }
+    .cg-counter {
+      position: absolute; bottom: 10px; right: 12px; z-index: 2;
+      font-family: var(--font-mono); font-size: .65rem; color: rgba(255,255,255,.6);
+      background: rgba(0,0,0,.42); padding: 3px 8px; border-radius: 20px;
+    }
+    .cg-caption {
+      font-family: var(--font-mono); font-size: .7rem; color: var(--text-lo);
+      margin-top: var(--sp-3); min-height: 1.1em;
+    }
+    .cg-thumbs { display: flex; gap: 8px; margin-top: var(--sp-3); overflow-x: auto; scrollbar-width: none; }
+    .cg-thumbs::-webkit-scrollbar { display: none; }
+    .cg-thumb {
+      flex: 0 0 92px; height: 60px; padding: 0; overflow: hidden;
+      border: 2px solid transparent; border-radius: var(--r-sm);
+      background: var(--bg-0); cursor: pointer; opacity: .5;
+      transition: opacity var(--dur-base), border-color var(--dur-base);
+    }
+    .cg-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .cg-thumb.active { opacity: 1; border-color: var(--accent); }
+    .cg-thumb:hover { opacity: .82; }
+    .cg-thumb:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    @media (max-width: 760px) {
+      .cg-stage-img { height: min(44vh, 320px); }
+      .cg-thumb { flex-basis: 76px; height: 50px; }
+    }
+
     /* кликабельные скриншоты галереи */
     [data-gallery] figure { position: relative; cursor: zoom-in; }
     [data-gallery] figure img { transition: transform var(--dur-base) var(--ease-out), opacity var(--dur-fast); }
@@ -1702,15 +1766,21 @@
           </ul>
           <div class="case-tags"><span class="tag">Next.js 16</span><span class="tag">React 19</span><span class="tag">Strapi 5</span><span class="tag">Three.js</span><span class="tag">Motion</span><span class="tag">Tailwind v4</span><span class="tag">Docker</span></div>
         </div>
-        <div class="shots" data-gallery="case">
-          <div class="shot-d">
-            <figure><img src="sites-media/icg_d1.jpg" alt="IC Group — home with WebGL background" loading="lazy"><figcaption>Home — animated WebGL hero</figcaption></figure>
-            <figure><img src="sites-media/icg_d3.jpg" alt="IC Group — 3D presence map" loading="lazy"><figcaption>Interactive 3D region map on Three.js</figcaption></figure>
-            <figure><img src="sites-media/icg_d2.jpg" alt="IC Group — CMS news" loading="lazy"><figcaption>CMS news — filters and cards</figcaption></figure>
-          </div>
-          <div class="shot-m-col">
-            <figure class="shot-m"><img src="sites-media/icg_m1.jpg" alt="IC Group — news (mobile)" loading="lazy"><figcaption>News · mobile</figcaption></figure>
-            <figure class="shot-m"><img src="sites-media/icg_m2.jpg" alt="IC Group — menu (mobile)" loading="lazy"><figcaption>Menu · mobile</figcaption></figure>
+        <div class="case-gallery" data-gallery="case">
+          <button type="button" class="cg-stage" aria-label="Open screenshot fullscreen">
+            <img class="cg-stage-img" src="sites-media/icg_d1.jpg" alt="IC Group — home with WebGL background">
+            <span class="cg-nav prev" role="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></span>
+            <span class="cg-nav next" role="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></span>
+            <span class="cg-zoom">⤢</span>
+            <span class="cg-counter"></span>
+          </button>
+          <div class="cg-caption"></div>
+          <div class="cg-thumbs" role="tablist" aria-label="Project screenshots">
+            <button type="button" class="cg-thumb"><img src="sites-media/icg_d1.jpg" alt="IC Group — home with WebGL background" data-caption="Home — animated WebGL hero" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/icg_d3.jpg" alt="IC Group — 3D presence map" data-caption="Interactive 3D region map on Three.js" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/icg_d2.jpg" alt="IC Group — CMS news" data-caption="CMS news — filters and cards" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/icg_m1.jpg" alt="IC Group — news (mobile)" data-caption="News · mobile" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/icg_m2.jpg" alt="IC Group — menu (mobile)" data-caption="Menu · mobile" loading="lazy"></button>
           </div>
         </div>
       </article>
@@ -1732,13 +1802,19 @@
           </ul>
           <div class="case-tags"><span class="tag">WordPress</span><span class="tag">PHP</span><span class="tag">ACF</span><span class="tag">Yoast SEO</span><span class="tag">JavaScript</span><span class="tag">CSS</span></div>
         </div>
-        <div class="shots" data-gallery="case">
-          <div class="shot-d">
-            <figure><img src="sites-media/smile_d1.jpg" alt="Mister Smile — home" loading="lazy"><figcaption>Home — hero and online booking</figcaption></figure>
-            <figure><img src="sites-media/smile_d2.jpg" alt="Mister Smile — doctors" loading="lazy"><figcaption>Our doctors and booking form</figcaption></figure>
-          </div>
-          <div class="shot-m-col">
-            <figure class="shot-m"><img src="sites-media/smile_m.jpg" alt="Mister Smile — mobile" loading="lazy"><figcaption>Mobile</figcaption></figure>
+        <div class="case-gallery" data-gallery="case">
+          <button type="button" class="cg-stage" aria-label="Open screenshot fullscreen">
+            <img class="cg-stage-img" src="sites-media/smile_d1.jpg" alt="Mister Smile — home">
+            <span class="cg-nav prev" role="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></span>
+            <span class="cg-nav next" role="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></span>
+            <span class="cg-zoom">⤢</span>
+            <span class="cg-counter"></span>
+          </button>
+          <div class="cg-caption"></div>
+          <div class="cg-thumbs" role="tablist" aria-label="Project screenshots">
+            <button type="button" class="cg-thumb"><img src="sites-media/smile_d1.jpg" alt="Mister Smile — home" data-caption="Home — hero and online booking" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/smile_d2.jpg" alt="Mister Smile — doctors" data-caption="Our doctors and booking form" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/smile_m.jpg" alt="Mister Smile — mobile" data-caption="Mobile" loading="lazy"></button>
           </div>
         </div>
       </article>
@@ -1759,14 +1835,20 @@
           </ul>
           <div class="case-tags"><span class="tag">WordPress</span><span class="tag">WooCommerce</span><span class="tag">PHP</span><span class="tag">JavaScript</span><span class="tag">CSS</span></div>
         </div>
-        <div class="shots" data-gallery="case">
-          <div class="shot-d">
-            <figure><img src="sites-media/telefly_d1.jpg" alt="Telefly — home and catalog" loading="lazy"><figcaption>Home and equipment catalog</figcaption></figure>
-            <figure><img src="sites-media/telefly_d2.jpg" alt="Telefly — server catalog" loading="lazy"><figcaption>Server catalog with filters</figcaption></figure>
-            <figure><img src="sites-media/telefly_d3.jpg" alt="Telefly — about and partner brands" loading="lazy"><figcaption>About the company and partner brands</figcaption></figure>
-          </div>
-          <div class="shot-m-col">
-            <figure class="shot-m"><img src="sites-media/telefly_m.jpg" alt="Telefly — mobile" loading="lazy"><figcaption>Catalog · mobile</figcaption></figure>
+        <div class="case-gallery" data-gallery="case">
+          <button type="button" class="cg-stage" aria-label="Open screenshot fullscreen">
+            <img class="cg-stage-img" src="sites-media/telefly_d1.jpg" alt="Telefly — home and catalog">
+            <span class="cg-nav prev" role="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></span>
+            <span class="cg-nav next" role="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></span>
+            <span class="cg-zoom">⤢</span>
+            <span class="cg-counter"></span>
+          </button>
+          <div class="cg-caption"></div>
+          <div class="cg-thumbs" role="tablist" aria-label="Project screenshots">
+            <button type="button" class="cg-thumb"><img src="sites-media/telefly_d1.jpg" alt="Telefly — home and catalog" data-caption="Home and equipment catalog" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/telefly_d2.jpg" alt="Telefly — server catalog" data-caption="Server catalog with filters" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/telefly_d3.jpg" alt="Telefly — about and partner brands" data-caption="About the company and partner brands" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/telefly_m.jpg" alt="Telefly — mobile" data-caption="Catalog · mobile" loading="lazy"></button>
           </div>
         </div>
       </article>
@@ -1955,7 +2037,8 @@
       if(active) active.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
     }
     function openModal(gallery,startIdx){
-      var imgs=[].slice.call(gallery.querySelectorAll('img'));
+      var thumbs=gallery.querySelectorAll('.cg-thumb img');
+      var imgs=[].slice.call(thumbs.length?thumbs:gallery.querySelectorAll('img'));
       if(!imgs.length) return;
       curImgs=imgs.map(function(im){return im.currentSrc||im.src;});
       curAlts=imgs.map(function(im){return im.alt||'';});
@@ -2001,6 +2084,47 @@
         fig.addEventListener('click',function(){openModal(gallery,i);});
         fig.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault();openModal(gallery,i);} });
       });
+    });
+
+    /* инлайн лента-карусель: превью переключают крупный кадр, кадр открывает модалку */
+    document.querySelectorAll('.case-gallery').forEach(function(gallery){
+      var stageImg=gallery.querySelector('.cg-stage-img'),
+          stage=gallery.querySelector('.cg-stage'),
+          caption=gallery.querySelector('.cg-caption'),
+          counter=gallery.querySelector('.cg-counter'),
+          thumbBtns=[].slice.call(gallery.querySelectorAll('.cg-thumb')),
+          srcs=thumbBtns.map(function(b){var im=b.querySelector('img');return {src:im.getAttribute('src'),alt:im.getAttribute('alt')||'',cap:im.getAttribute('data-caption')||''};}),
+          idx=0;
+      if(!stageImg||!srcs.length) return;
+      function markPortrait(){
+        stageImg.classList.remove('portrait');
+        var check=function(){ if(stageImg.naturalHeight>stageImg.naturalWidth*1.15) stageImg.classList.add('portrait'); };
+        if(stageImg.complete&&stageImg.naturalWidth) check(); else stageImg.addEventListener('load',check,{once:true});
+      }
+      function show(i,animate){
+        idx=((i%srcs.length)+srcs.length)%srcs.length;
+        var apply=function(){
+          stageImg.src=srcs[idx].src; stageImg.alt=srcs[idx].alt; markPortrait();
+          if(caption) caption.textContent=srcs[idx].cap;
+          if(counter) counter.textContent=(idx+1)+' / '+srcs.length;
+          thumbBtns.forEach(function(b,bi){ b.classList.toggle('active',bi===idx); b.setAttribute('aria-selected',bi===idx?'true':'false'); });
+          if(animate) requestAnimationFrame(function(){stageImg.classList.remove('swap');});
+        };
+        if(animate){ stageImg.classList.add('swap'); setTimeout(apply,120); } else apply();
+      }
+      thumbBtns.forEach(function(b,i){
+        b.setAttribute('role','tab');
+        b.addEventListener('click',function(){show(i,true);});
+      });
+      gallery.querySelectorAll('.cg-nav').forEach(function(nav){
+        nav.addEventListener('click',function(e){ e.stopPropagation(); show(idx+(nav.classList.contains('next')?1:-1),true); });
+      });
+      stage.addEventListener('click',function(){ openModal(gallery,idx); });
+      stage.addEventListener('keydown',function(e){
+        if(e.key==='ArrowLeft'){e.preventDefault();show(idx-1,true);}
+        else if(e.key==='ArrowRight'){e.preventDefault();show(idx+1,true);}
+      });
+      show(0,false);
     });
   }
 })();
