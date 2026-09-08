@@ -1408,6 +1408,8 @@
     .page-hero .section-sub { max-width: 60ch; }
     .page-hero .btn { margin-top: var(--sp-5); }
 
+    #real, #more { padding: var(--sp-7) 0; }
+
     .cases { display: flex; flex-direction: column; gap: var(--sp-7); margin-top: var(--sp-6); }
     .case-lg {
       background: var(--bg-1);
@@ -1877,11 +1879,21 @@
           <p>Одностраничник для студии ИИ-автоматизации: hero, услуги, метрики результатов, тарифы и форма заявки. Тёмная тема, градиенты, scroll-анимации.</p>
           <div class="case-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
         </div>
-        <div class="demo-shots" data-gallery="demo">
-          <figure><img src="sites-media/ai_d1.jpg" alt="Лендинг ИИ — первый экран" loading="lazy"></figure>
-          <figure><img src="sites-media/ai_d2.jpg" alt="Лендинг ИИ — услуги" loading="lazy"></figure>
-          <figure><img src="sites-media/ai_d3.jpg" alt="Лендинг ИИ — тарифы" loading="lazy"></figure>
-          <figure class="mob"><img src="sites-media/ai_m1.jpg" alt="Лендинг ИИ — mobile" loading="lazy"></figure>
+        <div class="case-gallery" data-gallery="demo">
+          <button type="button" class="cg-stage" aria-label="Открыть скриншот на весь экран">
+            <img class="cg-stage-img" src="sites-media/ai_d1.jpg" alt="Лендинг ИИ — первый экран">
+            <span class="cg-nav prev" role="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></span>
+            <span class="cg-nav next" role="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></span>
+            <span class="cg-zoom">⤢</span>
+            <span class="cg-counter"></span>
+          </button>
+          <div class="cg-caption"></div>
+          <div class="cg-thumbs" role="tablist" aria-label="Скриншоты проекта">
+            <button type="button" class="cg-thumb"><img src="sites-media/ai_d1.jpg" alt="Лендинг ИИ — первый экран" data-caption="Первый экран" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/ai_d2.jpg" alt="Лендинг ИИ — услуги" data-caption="Услуги" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/ai_d3.jpg" alt="Лендинг ИИ — тарифы" data-caption="Тарифы" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/ai_m1.jpg" alt="Лендинг ИИ — mobile" data-caption="Mobile" loading="lazy"></button>
+          </div>
         </div>
       </article>
 
@@ -1892,11 +1904,21 @@
           <p>Элегантный сайт ресторана изысканной кухни: меню, галерея блюд, бронирование столика, отзывы. Тонкая типографика, премиальная подача.</p>
           <div class="case-tags"><span class="tag">React</span><span class="tag">Vite</span><span class="tag">Tailwind CSS</span></div>
         </div>
-        <div class="demo-shots" data-gallery="demo">
-          <figure><img src="sites-media/resto_d1.jpg" alt="Ресторан — первый экран" loading="lazy"></figure>
-          <figure><img src="sites-media/resto_d2.jpg" alt="Ресторан — о ресторане" loading="lazy"></figure>
-          <figure><img src="sites-media/resto_d3.jpg" alt="Ресторан — галерея блюд" loading="lazy"></figure>
-          <figure><img src="sites-media/resto_d4.jpg" alt="Ресторан — бронирование" loading="lazy"></figure>
+        <div class="case-gallery" data-gallery="demo">
+          <button type="button" class="cg-stage" aria-label="Открыть скриншот на весь экран">
+            <img class="cg-stage-img" src="sites-media/resto_d1.jpg" alt="Ресторан — первый экран">
+            <span class="cg-nav prev" role="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></span>
+            <span class="cg-nav next" role="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></span>
+            <span class="cg-zoom">⤢</span>
+            <span class="cg-counter"></span>
+          </button>
+          <div class="cg-caption"></div>
+          <div class="cg-thumbs" role="tablist" aria-label="Скриншоты проекта">
+            <button type="button" class="cg-thumb"><img src="sites-media/resto_d1.jpg" alt="Ресторан — первый экран" data-caption="Первый экран" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/resto_d2.jpg" alt="Ресторан — о ресторане" data-caption="О ресторане" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/resto_d3.jpg" alt="Ресторан — галерея блюд" data-caption="Галерея блюд" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/resto_d4.jpg" alt="Ресторан — бронирование" data-caption="Бронирование" loading="lazy"></button>
+          </div>
         </div>
       </article>
 
@@ -1907,26 +1929,21 @@
           <p>Пять страниц: главная, услуги, врачи, цены, контакты. Онлайн-запись, аккуратная навигация, полный адаптив.</p>
           <div class="case-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
         </div>
-        <div class="demo-shots" data-gallery="demo">
-          <figure><img src="sites-media/dent_d1.jpg" alt="Клиника — первый экран" loading="lazy"></figure>
-          <figure><img src="sites-media/dent_d2.jpg" alt="Клиника — услуги" loading="lazy"></figure>
-          <figure><img src="sites-media/dent_d3.jpg" alt="Клиника — врачи" loading="lazy"></figure>
-          <figure class="mob"><img src="sites-media/dent_m1.jpg" alt="Клиника — mobile" loading="lazy"></figure>
-        </div>
-      </article>
-
-      <article class="demo reveal">
-        <div class="demo-body">
-          <span class="badge">Лендинг</span>
-          <h3>Портфолио-лендинг</h3>
-          <p>Технологичный одностраничник: hero с код-панелью, стек, услуги, проекты с фильтром, форма связи. Тёмная тема.</p>
-          <div class="case-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
-        </div>
-        <div class="demo-shots" data-gallery="demo">
-          <figure><img src="sites-media/portf_d1.jpg" alt="Портфолио-лендинг — первый экран" loading="lazy"></figure>
-          <figure><img src="sites-media/portf_d2.jpg" alt="Портфолио-лендинг — технологии" loading="lazy"></figure>
-          <figure><img src="sites-media/portf_d3.jpg" alt="Портфолио-лендинг — проекты" loading="lazy"></figure>
-          <figure class="mob"><img src="sites-media/portf_m1.jpg" alt="Портфолио-лендинг — mobile" loading="lazy"></figure>
+        <div class="case-gallery" data-gallery="demo">
+          <button type="button" class="cg-stage" aria-label="Открыть скриншот на весь экран">
+            <img class="cg-stage-img" src="sites-media/dent_d1.jpg" alt="Клиника — первый экран">
+            <span class="cg-nav prev" role="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></span>
+            <span class="cg-nav next" role="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></span>
+            <span class="cg-zoom">⤢</span>
+            <span class="cg-counter"></span>
+          </button>
+          <div class="cg-caption"></div>
+          <div class="cg-thumbs" role="tablist" aria-label="Скриншоты проекта">
+            <button type="button" class="cg-thumb"><img src="sites-media/dent_d1.jpg" alt="Клиника — первый экран" data-caption="Первый экран" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/dent_d2.jpg" alt="Клиника — услуги" data-caption="Услуги" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/dent_d3.jpg" alt="Клиника — врачи" data-caption="Врачи" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/dent_m1.jpg" alt="Клиника — mobile" data-caption="Mobile" loading="lazy"></button>
+          </div>
         </div>
       </article>
 
@@ -1937,10 +1954,20 @@
           <p>Панель ИИ-агента: обзор, настройки плагинов и навыков, статистика, конфигурация. Компонентный интерфейс, тёмная тема.</p>
           <div class="case-tags"><span class="tag">React</span><span class="tag">Компонентный UI</span></div>
         </div>
-        <div class="demo-shots" data-gallery="demo">
-          <figure><img src="sites-media/dash_d1.jpg" alt="Дашборд — обзор" loading="lazy"></figure>
-          <figure><img src="sites-media/dash_d2.jpg" alt="Дашборд — раздел" loading="lazy"></figure>
-          <figure><img src="sites-media/dash_d3.jpg" alt="Дашборд — настройки" loading="lazy"></figure>
+        <div class="case-gallery" data-gallery="demo">
+          <button type="button" class="cg-stage" aria-label="Открыть скриншот на весь экран">
+            <img class="cg-stage-img" src="sites-media/dash_d1.jpg" alt="Дашборд — обзор">
+            <span class="cg-nav prev" role="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></span>
+            <span class="cg-nav next" role="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></span>
+            <span class="cg-zoom">⤢</span>
+            <span class="cg-counter"></span>
+          </button>
+          <div class="cg-caption"></div>
+          <div class="cg-thumbs" role="tablist" aria-label="Скриншоты проекта">
+            <button type="button" class="cg-thumb"><img src="sites-media/dash_d1.jpg" alt="Дашборд — обзор" data-caption="Обзор" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/dash_d2.jpg" alt="Дашборд — раздел" data-caption="Раздел" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/dash_d3.jpg" alt="Дашборд — настройки" data-caption="Настройки" loading="lazy"></button>
+          </div>
         </div>
       </article>
 

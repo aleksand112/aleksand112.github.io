@@ -1408,6 +1408,8 @@
     .page-hero .section-sub { max-width: 60ch; }
     .page-hero .btn { margin-top: var(--sp-5); }
 
+    #real, #more { padding: var(--sp-7) 0; }
+
     .cases { display: flex; flex-direction: column; gap: var(--sp-7); margin-top: var(--sp-6); }
     .case-lg {
       background: var(--bg-1);
@@ -1874,11 +1876,21 @@
           <p>A single-page site for an AI automation studio: hero, services, result metrics, pricing and a lead form. Dark theme, gradients, scroll animations.</p>
           <div class="case-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
         </div>
-        <div class="demo-shots" data-gallery="demo">
-          <figure><img src="sites-media/ai_d1.jpg" alt="AI landing — hero" loading="lazy"></figure>
-          <figure><img src="sites-media/ai_d2.jpg" alt="AI landing — services" loading="lazy"></figure>
-          <figure><img src="sites-media/ai_d3.jpg" alt="AI landing — pricing" loading="lazy"></figure>
-          <figure class="mob"><img src="sites-media/ai_m1.jpg" alt="AI landing — mobile" loading="lazy"></figure>
+        <div class="case-gallery" data-gallery="demo">
+          <button type="button" class="cg-stage" aria-label="Open screenshot fullscreen">
+            <img class="cg-stage-img" src="sites-media/ai_d1.jpg" alt="AI landing — hero">
+            <span class="cg-nav prev" role="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></span>
+            <span class="cg-nav next" role="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></span>
+            <span class="cg-zoom">⤢</span>
+            <span class="cg-counter"></span>
+          </button>
+          <div class="cg-caption"></div>
+          <div class="cg-thumbs" role="tablist" aria-label="Project screenshots">
+            <button type="button" class="cg-thumb"><img src="sites-media/ai_d1.jpg" alt="AI landing — hero" data-caption="Hero" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/ai_d2.jpg" alt="AI landing — services" data-caption="Services" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/ai_d3.jpg" alt="AI landing — pricing" data-caption="Pricing" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/ai_m1.jpg" alt="AI landing — mobile" data-caption="Mobile" loading="lazy"></button>
+          </div>
         </div>
       </article>
 
@@ -1889,11 +1901,21 @@
           <p>An elegant fine-dining restaurant site: menu, dish gallery, table reservation, reviews. Refined typography, premium presentation.</p>
           <div class="case-tags"><span class="tag">React</span><span class="tag">Vite</span><span class="tag">Tailwind CSS</span></div>
         </div>
-        <div class="demo-shots" data-gallery="demo">
-          <figure><img src="sites-media/resto_d1.jpg" alt="Restaurant — hero" loading="lazy"></figure>
-          <figure><img src="sites-media/resto_d2.jpg" alt="Restaurant — about" loading="lazy"></figure>
-          <figure><img src="sites-media/resto_d3.jpg" alt="Restaurant — dish gallery" loading="lazy"></figure>
-          <figure><img src="sites-media/resto_d4.jpg" alt="Restaurant — reservation" loading="lazy"></figure>
+        <div class="case-gallery" data-gallery="demo">
+          <button type="button" class="cg-stage" aria-label="Open screenshot fullscreen">
+            <img class="cg-stage-img" src="sites-media/resto_d1.jpg" alt="Restaurant — hero">
+            <span class="cg-nav prev" role="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></span>
+            <span class="cg-nav next" role="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></span>
+            <span class="cg-zoom">⤢</span>
+            <span class="cg-counter"></span>
+          </button>
+          <div class="cg-caption"></div>
+          <div class="cg-thumbs" role="tablist" aria-label="Project screenshots">
+            <button type="button" class="cg-thumb"><img src="sites-media/resto_d1.jpg" alt="Restaurant — hero" data-caption="Hero" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/resto_d2.jpg" alt="Restaurant — about" data-caption="About" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/resto_d3.jpg" alt="Restaurant — dish gallery" data-caption="Dish gallery" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/resto_d4.jpg" alt="Restaurant — reservation" data-caption="Reservation" loading="lazy"></button>
+          </div>
         </div>
       </article>
 
@@ -1904,26 +1926,21 @@
           <p>Five pages: home, services, doctors, pricing, contacts. Online booking, tidy navigation, fully responsive.</p>
           <div class="case-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
         </div>
-        <div class="demo-shots" data-gallery="demo">
-          <figure><img src="sites-media/dent_d1.jpg" alt="Clinic — hero" loading="lazy"></figure>
-          <figure><img src="sites-media/dent_d2.jpg" alt="Clinic — services" loading="lazy"></figure>
-          <figure><img src="sites-media/dent_d3.jpg" alt="Clinic — doctors" loading="lazy"></figure>
-          <figure class="mob"><img src="sites-media/dent_m1.jpg" alt="Clinic — mobile" loading="lazy"></figure>
-        </div>
-      </article>
-
-      <article class="demo reveal">
-        <div class="demo-body">
-          <span class="badge">Landing</span>
-          <h3>Developer portfolio landing</h3>
-          <p>A tech one-pager: hero with a code panel, stack, services, filterable projects, contact form. Dark theme.</p>
-          <div class="case-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
-        </div>
-        <div class="demo-shots" data-gallery="demo">
-          <figure><img src="sites-media/portf_d1.jpg" alt="Portfolio landing — hero" loading="lazy"></figure>
-          <figure><img src="sites-media/portf_d2.jpg" alt="Portfolio landing — technologies" loading="lazy"></figure>
-          <figure><img src="sites-media/portf_d3.jpg" alt="Portfolio landing — projects" loading="lazy"></figure>
-          <figure class="mob"><img src="sites-media/portf_m1.jpg" alt="Portfolio landing — mobile" loading="lazy"></figure>
+        <div class="case-gallery" data-gallery="demo">
+          <button type="button" class="cg-stage" aria-label="Open screenshot fullscreen">
+            <img class="cg-stage-img" src="sites-media/dent_d1.jpg" alt="Clinic — hero">
+            <span class="cg-nav prev" role="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></span>
+            <span class="cg-nav next" role="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></span>
+            <span class="cg-zoom">⤢</span>
+            <span class="cg-counter"></span>
+          </button>
+          <div class="cg-caption"></div>
+          <div class="cg-thumbs" role="tablist" aria-label="Project screenshots">
+            <button type="button" class="cg-thumb"><img src="sites-media/dent_d1.jpg" alt="Clinic — hero" data-caption="Hero" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/dent_d2.jpg" alt="Clinic — services" data-caption="Services" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/dent_d3.jpg" alt="Clinic — doctors" data-caption="Doctors" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/dent_m1.jpg" alt="Clinic — mobile" data-caption="Mobile" loading="lazy"></button>
+          </div>
         </div>
       </article>
 
@@ -1934,10 +1951,20 @@
           <p>An AI agent control panel: overview, plugin and skill settings, statistics, configuration. Component-based interface, dark theme.</p>
           <div class="case-tags"><span class="tag">React</span><span class="tag">Component UI</span></div>
         </div>
-        <div class="demo-shots" data-gallery="demo">
-          <figure><img src="sites-media/dash_d1.jpg" alt="Dashboard — overview" loading="lazy"></figure>
-          <figure><img src="sites-media/dash_d2.jpg" alt="Dashboard — section" loading="lazy"></figure>
-          <figure><img src="sites-media/dash_d3.jpg" alt="Dashboard — settings" loading="lazy"></figure>
+        <div class="case-gallery" data-gallery="demo">
+          <button type="button" class="cg-stage" aria-label="Open screenshot fullscreen">
+            <img class="cg-stage-img" src="sites-media/dash_d1.jpg" alt="Dashboard — overview">
+            <span class="cg-nav prev" role="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></span>
+            <span class="cg-nav next" role="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></span>
+            <span class="cg-zoom">⤢</span>
+            <span class="cg-counter"></span>
+          </button>
+          <div class="cg-caption"></div>
+          <div class="cg-thumbs" role="tablist" aria-label="Project screenshots">
+            <button type="button" class="cg-thumb"><img src="sites-media/dash_d1.jpg" alt="Dashboard — overview" data-caption="Overview" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/dash_d2.jpg" alt="Dashboard — section" data-caption="Section" loading="lazy"></button>
+            <button type="button" class="cg-thumb"><img src="sites-media/dash_d3.jpg" alt="Dashboard — settings" data-caption="Settings" loading="lazy"></button>
+          </div>
         </div>
       </article>
 
