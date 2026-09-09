@@ -1261,9 +1261,9 @@
 
     .contacts-grid {
       display: grid;
-      grid-template-columns: 1fr 1.3fr;
-      gap: var(--sp-9);
-      align-items: start;
+      justify-content: center;
+      max-width: 480px;
+      margin: 0 auto;
     }
 
     .contact-items { display: flex; flex-direction: column; gap: var(--sp-6); }
@@ -1286,65 +1286,6 @@
     .contact-val a { color: var(--accent); transition: color var(--dur-fast); }
     .contact-val a:hover { color: var(--accent-2); }
 
-    /* Form */
-    .form { display: flex; flex-direction: column; gap: var(--sp-4); }
-
-    .form-group { display: flex; flex-direction: column; gap: var(--sp-2); }
-
-    .form-lbl { font-size: .78rem; font-weight: 500; color: var(--text-mid); }
-
-    .form-inp, .form-ta {
-      background: rgba(13,21,38,.7);
-      border: 1.5px solid var(--border-dim);
-      border-radius: var(--r-sm);
-      padding: 13px 16px;
-      font-family: var(--font-body);
-      font-size: .9rem;
-      color: var(--text-hi);
-      outline: none;
-      min-height: 48px; /* UI/UX: touch target */
-      transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
-    }
-    .form-inp::placeholder, .form-ta::placeholder { color: var(--text-lo); }
-    .form-inp:focus, .form-ta:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-glow);
-    }
-    .form-inp.err, .form-ta.err {
-      border-color: var(--danger);
-      box-shadow: 0 0 0 3px rgba(255,83,112,.15);
-    }
-    .form-ta { resize: vertical; min-height: 130px; }
-
-    .form-err {
-      font-size: .75rem;
-      color: var(--danger);
-      display: none;
-      font-family: var(--font-mono);
-    }
-    .form-err.show { display: block; }
-
-    .form-submit { width: 100%; font-size: .95rem; }
-
-    /* Toast — UI/UX: aria-live, auto-dismiss 4s */
-    .toast {
-      position: fixed;
-      bottom: var(--sp-7); right: var(--sp-7);
-      background: var(--success);
-      color: #fff;
-      padding: 14px 22px;
-      border-radius: var(--r-sm);
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: .88rem;
-      box-shadow: var(--shadow-lg);
-      display: flex; align-items: center; gap: var(--sp-3);
-      transform: translateY(80px);
-      opacity: 0;
-      transition: transform var(--dur-slow) var(--ease-out), opacity var(--dur-slow);
-      z-index: 1000;
-    }
-    .toast.show { transform: translateY(0); opacity: 1; }
 
     /* ══════════════════════════════════════════════
        FOOTER
@@ -2406,30 +2347,6 @@ async def reply(msg):
         </a>
       </div>
 
-      <div class="reveal" style="transition-delay:100ms">
-        <form class="form" id="contactForm" novalidate aria-label="Форма обратной связи">
-          <div class="form-group">
-            <label class="form-lbl" for="fname">Имя <span aria-hidden="true" style="color:var(--danger)">*</span></label>
-            <input type="text" id="fname" class="form-inp" placeholder="Ваше имя" autocomplete="given-name" aria-required="true">
-            <span class="form-err" id="err-name" role="alert">Введите имя (минимум 2 символа)</span>
-          </div>
-
-          <div class="form-group">
-            <label class="form-lbl" for="femail">Email <span aria-hidden="true" style="color:var(--danger)">*</span></label>
-            <input type="email" id="femail" class="form-inp" placeholder="your@email.com" autocomplete="email" aria-required="true">
-            <span class="form-err" id="err-email" role="alert">Введите корректный email</span>
-          </div>
-
-          <div class="form-group">
-            <label class="form-lbl" for="fmsg">Сообщение <span aria-hidden="true" style="color:var(--danger)">*</span></label>
-            <textarea id="fmsg" class="form-ta" placeholder="Расскажите о вашем проекте..." aria-required="true"></textarea>
-            <span class="form-err" id="err-msg" role="alert">Напишите сообщение (минимум 10 символов)</span>
-          </div>
-
-          <button type="submit" class="btn btn-primary form-submit" id="formBtn">Отправить</button>
-        </form>
-      </div>
-
     </div>
   </div>
 </section>
@@ -2480,12 +2397,6 @@ async def reply(msg):
     </nav>
   </div>
 </footer>
-
-<!-- Toast — UI/UX Pro Max: aria-live, 4s auto-dismiss -->
-<div class="toast" id="toast" aria-live="polite" aria-atomic="true">
-  <svg width="18" height="18" style="flex-shrink:0"><use href="#ico-check"/></svg>
-  Сообщение отправлено! Скоро свяжусь.
-</div>
 
 <script>
   /* ── HEADER SCROLL ── */
@@ -2548,81 +2459,6 @@ async def reply(msg):
       setTimeout(() => c.classList.add('visible'), i * 50);
     });
   }));
-
-  /* ── FORM ── */
-  const form    = document.getElementById('contactForm');
-  const toast   = document.getElementById('toast');
-  const formBtn = document.getElementById('formBtn');
-
-  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  function setErr(fieldId, errId, show) {
-    const f = document.getElementById(fieldId);
-    const e = document.getElementById(errId);
-    f.classList.toggle('err', show);
-    e.classList.toggle('show', show);
-    f.setAttribute('aria-invalid', show ? 'true' : 'false');
-  }
-
-  /* UI/UX Pro Max: validate on blur, not on every keystroke */
-  document.getElementById('fname').addEventListener('blur', function() {
-    setErr('fname','err-name', this.value.trim().length < 2);
-  });
-  document.getElementById('femail').addEventListener('blur', function() {
-    setErr('femail','err-email', !emailRe.test(this.value.trim()));
-  });
-  document.getElementById('fmsg').addEventListener('blur', function() {
-    setErr('fmsg','err-msg', this.value.trim().length < 10);
-  });
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const name  = document.getElementById('fname').value.trim();
-    const email = document.getElementById('femail').value.trim();
-    const msg   = document.getElementById('fmsg').value.trim();
-
-    const n_err = name.length  < 2;
-    const e_err = !emailRe.test(email);
-    const m_err = msg.length   < 10;
-
-    setErr('fname','err-name', n_err);
-    setErr('femail','err-email', e_err);
-    setErr('fmsg','err-msg', m_err);
-
-    if (n_err || e_err || m_err) {
-      /* UI/UX: focus first invalid field */
-      if (n_err) document.getElementById('fname').focus();
-      else if (e_err) document.getElementById('femail').focus();
-      else document.getElementById('fmsg').focus();
-      return;
-    }
-
-    formBtn.disabled = true;
-    formBtn.textContent = 'Отправка…';
-
-    const TG_TOKEN   = '8910437997:AAFo2GknrAOeQFdf2SHWqQ_xr6vav-xtGJ8';
-    const TG_CHAT_ID = '1775931875';
-
-    const text = `📩 <b>Новая заявка с портфолио!</b>\n\n👤 <b>Имя:</b> ${name}\n📧 <b>Email:</b> ${email}\n💬 <b>Сообщение:</b>\n${msg}`;
-
-    fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: TG_CHAT_ID, text, parse_mode: 'HTML' })
-    })
-    .then(() => {
-      form.reset();
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 4000);
-    })
-    .catch(() => {
-      alert('Ошибка отправки. Напишите напрямую: t.me/aleksand112');
-    })
-    .finally(() => {
-      formBtn.disabled = false;
-      formBtn.textContent = 'Отправить';
-    });
-  });
 
   /* ── SMOOTH SCROLL ── */
   document.querySelectorAll('a[href^="#"]').forEach(a => {
